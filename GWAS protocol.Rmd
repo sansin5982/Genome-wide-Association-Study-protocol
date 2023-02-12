@@ -1,0 +1,303 @@
+---
+title: "GWAS protocol"
+output: md_document
+date: "2023-02-12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r r setup, include=FALSE, echo=FALSE}
+library(gdsfmt)
+library(SNPRelate)
+```
+
+# Introduction
+**Tools, Software and Files Required**
+
+- **plink**
+https://www.cog-genomics.org/plink2/
+https://www.cog-genomics.org/plink/2.0/
+
+- **bcftools and samtools**
+http://www.htslib.org/download/
+
+- **vcftools**
+https://sourceforge.net/projects/vcftools/files/
+
+- **Check for compatibility with the input required by the Sanger server.**
+http://qbrc.swmed.edu/zhanxw/software/checkVCF/checkVCF-20140116.tar.gz
+
+- **Haplotype Reference Consortium v1.1 panel for HRC site list** (HRC.r1-1.GRCh37.wgs.mac5.sites.tab)
+ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/
+
+- **HRC preparation checking tool**
+https://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim-v4.2.9.zipa
+
+- Set the path for these tools so you directly call them from a different folder. To set the path first you have enter in that specific tools
+**export PATH=$PATH:$(pwd)**
+
+## Basic input files
+
+We expect two basic input files, Raw.ped and Raw.map, for association analysis. Here Raw is the file name. These files can also be converted into binary format. Description of ped and map files is givne below:
+
+### PED File
+The PED file is a white-space (space or tab) delimited file: the first six mandatory columns are given below.
+- Family ID
+- Individual ID
+- Paternal ID
+- Maternal ID
+- Sex (1 = male; 2 = female; other = -9)
+- Phenotype
+
+Sixth column represents phenotype. The phenotype can be either an affection status or quantitative trait. Plink can automatically detect the phenotype based on the code.
+
+### MAP file
+Each line of the MAP file explains a single marker and contains four columns. MAP file for gender- and age-specific analyses were similar.
+
+- Chromosome (1-22, X, Y or 0 if unplaced)
+- rs# or snp identifier
+- Genetic distance (morgans)
+- Base-pair position (bp units)
+
+The autosomes should be coded 1 through 22. The following other codes can be used to specify other chromosome types: 
+<br>
+
+|Region|Genomic region | Number |
+|---|---|---|
+|X|X chromosome|23|
+|Y|Y chromosome|24| 
+|XY|Pseudo-autosomal region of X|25|  
+|MT|Mitochondrial|26|
+
+### Binary file format
+Binary files (fam, bed and bin) are smaller in size and run faster than basic files (ped and map). Quality control, statistical analysis and data entry (phenotype) are much easier and takes lesser time. 
+
+# Methods 
+
+## Steps to perform Genome-wide association study:
+
+1. If we get ped and map file, first should convert it into binary format (bed, bim and fam)
+<br>
+<br>
+**./plink –file raw_GWAS_data --make-bed**
+<br>
+<br>
+Note: Earlier version of plink reads X chromosome as 23, Y chromosome as 24, pseudo-autosomal region of X as 25 and mitochondrial as 26. However, plink2 reads them with X, Y etc.
+<br>
+<br>
+
+**Quality controls steps:**
+<br>
+GWASs use thousands of markers to test association. Even a low rate of error or bias will introduce false positive associations. It has been suggested that removal of handful individuals or small percentage of markers should not markedly decrease the overall power of the study. Removal of one marker has greater impact than removal of one individual. Removal of one marker is potentially an overlooked disease association. Thus, implementing QC per-individual before QC per-marker will maximize the number of markers remaining in the study.  
+
+### Per Individual Quality Control
+Per-individual QC screens genotype to identify subjects that may introduce bias, if not removed. There are several steps of per-individual QC for a GWAS data set.
+
+#### Identification of individuals with discordant sex information 
+<br>
+PLINK command
+<br>
+**plink --bfile raw_GWAS_data --check-sex --out GWAS_Sex_Check**
+<br>
+
+
+- Command Create a list of individuals with discordant sex data in file “GWAS_Sex_Check.sexcheck”. Column 3 denotes ascertained sex and column 4 denotes sex according to genotype data. When the homozygosity rate is more than 0.2 but less than 0.8, the genotype data are inconclusive regarding the sex of an individual and these are marked in column 4 with a 0.
+- Extract the IDs of individuals with discordant sex information. In situations in which discrepancy cannot be resolved, remove the individuals through following command.
+<br>
+<br>
+PLINK command
+<br>
+**plink --bfile raw_GWAS_data --remove discordant-sex-individuals-file.txt --make-bed --out 1_QC_Raw_GWAS_data**
+<br>
+<br>
+(File “discordant-sex-individuals-file.txt”, should contain only FID and IID of the individuals that have to be removed)
+```{r eval=FALSE}
+Gender <- read.table("Sex_check_1.sexcheck", header = T, as.is = T) %>%
+  na.omit()
+png("Gender_check.png")
+ggplot(Gender, aes(x=F, y= PEDSEX, col = STATUS))+
+  geom_point()+
+  labs(y="Gender", x = "F score")+
+  theme_classic()+
+  scale_x_continuous(breaks = round(seq(min(Gender$F), 1, by = 0.01), 1))+
+  theme(strip.text.x = element_blank())+
+  geom_circle(aes(x0 = 0.61,  y0 = 2, r = 0.42),
+              inherit.aes = FALSE,
+              col = "Red")+
+  geom_circle(aes(x0 = 0.05,  y0 = 1, r = 0.46),
+              inherit.aes = FALSE,
+              col = "Red")+
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none")+
+  annotate(geom="text", x=-0.2, y=2.1, label="Females (< 0.2)",
+           color="#e75480")+
+  annotate(geom="text", x=0.9, y=1.1, label="Males (> 0.8)",
+           color="#00bfff")+
+  annotate(geom="text", x=0.61, y=2.1, label="Females failed (> 0.2)",
+           color="#e75480")+
+  annotate(geom="text", x=0.05, y=1.1, label="Males failed (< 0.8)",
+           color="#00bfff")
+dev.off()
+```
+
+```{r echo=FALSE, fig.cap="Discordant Sex information", out.width = '100%'}
+knitr::include_graphics("Gender_check.png")
+```
+
+#### Identification of individuals with elevated missing data rates
+<br>
+PLINK command
+<br>
+**./plink2 --bfile 1_QC_Raw_GWAS_data --missing --out missing_data_rate**
+<br>
+- Command creates the files “missing_data_rate.imiss” and “missing_data_rate.lmiss”.
+- The fourth column in the .imiss file (N_MISS) denotes the number of missing SNPs and the sixth column (F_MISS) denotes the proportion of missing SNPs per individual.
+
+#### Identification of individuals with outlying heterozygosity rate
+<br>
+PLINK command
+<br>
+**./plink --bfile 1_QC_Raw_GWAS_data --het --out outlying_heterozygosity_rate**
+<br>
+<br>
+**NOTE: plink2 format will give results in a different way**
+<br>
+- Command creates the file “outlying_heterozygosity_rate.het”, in which the third column denotes the observed number of homozygous genotypes [O(Hom)] and the fifth column denotes the number of non-missing genotypes [N(NM)] per individual.
+
+```{r eval=FALSE}
+# Missing individual & Heterozygosity rate
+miss <- fread("SEX_data/Missing_sample/missing_data_rate.imiss")
+hetro <- fread("SEX_data/Missing_sample/Heterozygosity_rate/outlying_heterozygosity_rate.het")
+head(miss, 2)
+head(hetro, 2)
+
+# Calculate the observed heterozyosity rate
+hetro$obs_hetero_rate <- ((hetro$`N(NM)`)-hetro$`E(HOM)`)/hetro$`N(NM)`
+```
+- Merge the “missing_data_rate.smiss” and “outlying_heterozygosity_rate.het”
+hetroandmiss<- merge(hetro, miss, by="IID")
+```{r eval=FALSE}
+# Merge missing file and heterozygoisty file
+hetro_miss <- miss %>% 
+  left_join(hetro, by = "IID")
+```
+
+```{r eval=FALSE}
+# Creating plot
+png("Missing_hetero_check.png")
+ggplot(hetro_miss, aes(x = F_MISS, y = obs_hetero_rate))+
+  geom_point(alpha = 0.5, col = "#00bfff")+
+  labs(x ="Proportion of Missing genotypes(log scale)", y = "Heterozygosity rate")+
+  scale_x_log10(limits = c(0.0001, 1))+
+  theme_classic()+
+  scale_y_continuous(limits = c((min(hetro_miss$obs_hetero_rate) - 0.02), (max(hetro_miss$obs_hetero_rate) + 0.02)))+
+  geom_hline(yintercept = mean(hetro_miss$obs_hetero_rate) + 3*sd(hetro_miss$obs_hetero_rate), col = "Grey")+
+  geom_hline(yintercept = mean(hetro_miss$obs_hetero_rate) - 3*sd(hetro_miss$obs_hetero_rate), col = "Grey")+
+  geom_vline(xintercept = 0.006, col = "Grey")+
+  geom_point(data=hetro_miss %>%
+               filter(F_MISS > 0.01),
+             pch = 19,
+             size=1.6,
+             colour = "#e75480")+
+  annotate(geom="text", x=0.035, y=0.303, label="Missing genotypes (>1%)",
+           color="#003300")+
+  annotate(geom="text", x=0.1, y=0.285, label="Excess heterozygosity rate (Â± 3 sd from mean)",
+           color="#003300")+
+  annotate(geom="text", x=0.00017, y=0.315, label="+3 sd from mean",
+           color="#003300")+
+  annotate(geom="text", x=0.00017, y=0.301, label="-3 sd from mean",
+           color="#003300")+
+  annotate(geom="text", x=0.0015, y=0.31, label="Genotyping > 99%",
+           color="#003300")
+
+dev.off()
+```
+
+```{r echo=FALSE, fig.cap="Individual missingness and heterozygoisty rate", out.width = '100%'}
+knitr::include_graphics("Missing_hetero_check.png")
+```
+#### Identification of duplicated or related individuals
+- Check the relatedness. Use the independent SNPs (pruning) for this analysis and limit to autosomal chromosome only
+<br>
+PLINK command
+<br>
+**plink 	--bfile 	2_QC_Raw_GWAS_data		--chr 1-22	--make-bed --out Autosomal**
+- Create independent SNPs through pruning
+<br>
+PLINK command
+<br>
+**plink 	--bfile		Autosomal	--indep-pairwise	50 5 0.2 --out raw-GWAS-data**
+<br>
+it will generate raw-GWAS-data.prune.in file. This file use in next step
+- Check relatedness
+<br>
+PLINK command
+<br>
+**plink --bfile 2_QC_Raw_GWAS_data –extract raw-GWAS-data.prune.in  --genome --out related_check**
+<br>
+
+|PIHAT values|Relation|
+|---|---|
+|1|Identical or Duplicate|
+|0.8 and above|	Highly related|
+|0.5	|First Degree|
+|0.25|Highly related|
+|0.125|First Cousin|
+|0.0625|Second Cousin|
+
+```{r echo=FALSE, fig.cap="Relatedness", out.width = '100%'}
+knitr::include_graphics("Related_samples.png")
+```
+
+#### Identification of Individuals of divergent ancestry
+**Population Stratification**
+
+```{r echo=FALSE, fig.cap="Population Stratification", out.width = '60%'}
+knitr::include_graphics("Population_stratification.jpg")
+```
+- A threat to validity of a genetic association studies and may introduce bias.
+Population stratification may confound results, if not adjusted. A population in a genetic association study may arise from two distinct sub-populations which may differ in their genetic ancestry. The presence of systematic differences in allele frequencies between these two sub populations may confound the result. There are thousands of neutral loci, known as genomic controls used to correct for population stratification in GWASs.
+
+1. **Multidimensional scaling**
+<br>
+PLINK Command
+<br>
+**plink --bfile 3_QC_Raw_GWAS_data --extract raw-GWAS-data.prune.in --genome --cluster --mds-plot 10**
+
+- Visualizing population structure using MDS is useful for identifying subpopulations, population stratification and systematic genotyping or sequencing errors, and can also be used to detect individual outliers that may need to be removed, e.g. European-Americans included in a study of African-Americans.
+
+2. **Principal component analysis**
+<br>
+PLINK Command
+<br>
+**plink --bfile 3_QC_Raw_GWAS_data --genome --cluster --pca 10**
+- We can also utilize hapmap data to perform PCA
+
+### Per SNP quality control
+#### Hardy Weinberg equilibrium
+- If the frequency of observed genotypes of a variant in a population can be derived
+from the observed allele frequencies, the genetic variant is said to be in
+Hardy–Weinberg equilibrium. 
+- Genotype frequencies remain stable from one generation to another in the absence of any evolutionary pressure (selection, mutation and migration).
+- The goodness-of-fit  test is used to test HWE is not a powerful test and reliability of results depends on the sample size.
+
+|Sample size|50|100|200|300|400|
+|---|---|---|---|---|---|
+|AA count|21|42|84|126|168|
+|AB count|25|50|100|150|200|
+|BB count|4|8|16|24|32|
+|HWE p value|0.52|0.26|0.08|**0.02**|**0.009**|
+Source: Genetic Epidemiology: Mehmet T Dorak
+<br>
+- Rule of thumb: the heterozygote frequency can only reach a maximum of 50%. If heterozygote frequencies are more than 50%, it is a clear sign of HWD, regardless of statistical test result.
+- Most common reason is not biological, **genotyping error** is most plausible exploration.
+
+<br>
+PLINK Command
+<br>
+**./plink2 --bfile 4_QC_Raw_GWAS_data --geno 0.01 --hwe 0.00000001 --make-bed --out 5_QC_Raw_GWAS_data**
+
+
