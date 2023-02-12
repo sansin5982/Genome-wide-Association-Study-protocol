@@ -304,7 +304,7 @@ Relatedness
 
 **Population Stratification**
 
-<img src="Population_stratification.jpg" alt="Population Stratification"  />
+<img src="Population_stratification.jpg" alt="Population Stratification" width="60%" />
 <p class="caption">
 Population Stratification
 </p>
