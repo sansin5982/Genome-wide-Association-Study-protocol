@@ -143,7 +143,7 @@ ggplot(Gender, aes(x=F, y= PEDSEX, col = STATUS))+
 dev.off()
 ```
 
-```{r echo=FALSE, fig.cap="Discordant Sex information", out.width = '100%'}
+```{r echo=FALSE, fig.cap="Discordant Sex information", out.width = '60%'}
 knitr::include_graphics("Gender_check.png")
 ```
 
@@ -216,7 +216,7 @@ ggplot(hetro_miss, aes(x = F_MISS, y = obs_hetero_rate))+
 dev.off()
 ```
 
-```{r echo=FALSE, fig.cap="Individual missingness and heterozygoisty rate", out.width = '100%'}
+```{r echo=FALSE, fig.cap="Individual missingness and heterozygoisty rate", out.width = '60%'}
 knitr::include_graphics("Missing_hetero_check.png")
 ```
 #### Identification of duplicated or related individuals

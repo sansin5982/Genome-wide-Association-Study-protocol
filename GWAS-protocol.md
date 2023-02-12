@@ -169,7 +169,7 @@ GWAS\_Sex\_Check** <br>
                color="#00bfff")
     dev.off()
 
-<img src="Gender_check.png" alt="Discordant Sex information" width="100%" />
+<img src="Gender_check.png" alt="Discordant Sex information" width="60%" />
 <p class="caption">
 Discordant Sex information
 </p>
@@ -241,7 +241,7 @@ individual.
 
     dev.off()
 
-<img src="Missing_hetero_check.png" alt="Individual missingness and heterozygoisty rate" width="100%" />
+<img src="Missing_hetero_check.png" alt="Individual missingness and heterozygoisty rate" width="60%" />
 <p class="caption">
 Individual missingness and heterozygoisty rate
 </p>
