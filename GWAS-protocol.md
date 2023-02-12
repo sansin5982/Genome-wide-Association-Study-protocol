@@ -169,10 +169,9 @@ GWAS\_Sex\_Check** <br>
                color="#00bfff")
     dev.off()
 
-<img src="Gender_check.png" alt="Discordant Sex information" width="100%" />
-<p class="caption">
-Discordant Sex information
-</p>
+    knitr::include_graphics("Gender_check.png")
+
+![](Gender_check.png)
 
 #### Identification of individuals with elevated missing data rates
 
