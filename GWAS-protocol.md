@@ -169,10 +169,7 @@ GWAS\_Sex\_Check** <br>
                color="#00bfff")
     dev.off()
 
-<img src="Gender_check.png" alt="Discordant Sex information" width="60%" />
-<p class="caption">
-Discordant Sex information
-</p>
+![Discordant Sex information](Gender_check.png)
 
 #### Identification of individuals with elevated missing data rates
 
@@ -241,24 +238,17 @@ individual.
 
     dev.off()
 
-<img src="Missing_hetero_check.png" alt="Individual missingness and heterozygoisty rate" width="60%" />
-<p class="caption">
-Individual missingness and heterozygoisty rate
-</p>
-
-#### Identification of duplicated or related individuals
-
--   Check the relatedness. Use the independent SNPs (pruning) for this
-    analysis and limit to autosomal chromosome only <br> PLINK command
-    <br> **plink –bfile 2\_QC\_Raw\_GWAS\_data –chr 1-22 –make-bed –out
-    Autosomal**
--   Create independent SNPs through pruning <br> PLINK command <br>
-    **plink –bfile Autosomal –indep-pairwise 50 5 0.2 –out
-    raw-GWAS-data** <br> it will generate raw-GWAS-data.prune.in file.
-    This file use in next step
--   Check relatedness <br> PLINK command <br> **plink –bfile
-    2\_QC\_Raw\_GWAS\_data –extract raw-GWAS-data.prune.in –genome –out
-    related\_check** <br>
+![Individual missingness and heterozygoisty
+rate](Missing_hetero_check.png) \#### Identification of duplicated or
+related individuals - Check the relatedness. Use the independent SNPs
+(pruning) for this analysis and limit to autosomal chromosome only <br>
+PLINK command <br> **plink –bfile 2\_QC\_Raw\_GWAS\_data –chr 1-22
+–make-bed –out Autosomal** - Create independent SNPs through pruning
+<br> PLINK command <br> **plink –bfile Autosomal –indep-pairwise 50 5
+0.2 –out raw-GWAS-data** <br> it will generate raw-GWAS-data.prune.in
+file. This file use in next step - Check relatedness <br> PLINK command
+<br> **plink –bfile 2\_QC\_Raw\_GWAS\_data –extract
+raw-GWAS-data.prune.in –genome –out related\_check** <br>
 
 <table>
 <thead>
@@ -295,10 +285,7 @@ Individual missingness and heterozygoisty rate
 </tbody>
 </table>
 
-<img src="Related_samples.png" alt="Relatedness" width="100%" />
-<p class="caption">
-Relatedness
-</p>
+![Relatedness](Related_samples.png)
 
 #### Identification of Individuals of divergent ancestry
 
