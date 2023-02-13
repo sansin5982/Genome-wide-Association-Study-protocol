@@ -33,9 +33,19 @@ into binary format. Description of ped and map files is givne below:
 ### PED File
 
 The PED file is a white-space (space or tab) delimited file: the first
-six mandatory columns are given below. - Family ID - Individual ID -
-Paternal ID - Maternal ID - Sex (1 = male; 2 = female; other = -9) -
-Phenotype
+six mandatory columns are given below.
+
+|FID|IID|PID|MID|Sex|P|rs1|rs2| |—|—|—|—|—|—||—|—| |1|1|0|0|1|1|CT|AG|
+|2|2|0|0|0|1|CG|AA| |3|3|0|0|1|0|CC|TT|
+
+Legend:
+
+-   FID = Family ID
+-   IID = Individual ID
+-   PID = Paternal ID
+-   MID = Maternal ID
+-   Sex (1 = male; 2 = female; other = -9)
+-   P = Phenotype
 
 Sixth column represents phenotype. The phenotype can be either an
 affection status or quantitative trait. Plink can automatically detect
