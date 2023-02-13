@@ -29,13 +29,20 @@
 ## Basic input files
 
 We expect two basic input files, Raw.ped and Raw.map, for association
-analysis. Here Raw is the file name. These files can also be converted
-into binary format. Description of ped and map files is givne below:
+analysis. Here Raw is the file name. PED (Plink Pedigree File) and MAP
+(Plink Map File) are file formats commonly used in genome-wide
+association studies (GWAS). These files can also be converted into
+binary format.
 
 ### PED File
 
-The PED file is a white-space (space or tab) delimited file: the first
-six mandatory columns are given below.
+The PED file is a tab-delimited text file that contains information
+about individuals in a study, including their family relationships and
+genotype data. Each row in the PED file represents a single individual,
+and each column represents a different type of information, such as the
+individual’s family ID, individual ID, and genotype data. The first six
+columns in a PED file are required and include the following
+information:
 
 <table>
 <thead>
@@ -86,12 +93,19 @@ six mandatory columns are given below.
 
 Legend:
 
--   FID = Family ID
--   IID = Individual ID
--   PID = Paternal ID
--   MID = Maternal ID
+-   FID = Family ID,a unique identifier for the family to which the
+    individual belongs
+-   IID = Individual ID, a unique identifier for the individual within
+    the family
+-   PID = Paternal ID,the individual ID of the father (-9 if unknown)
+-   MID = Maternal ID, the individual ID of the mother (-9 if unknown)
 -   Sex (1 = male; 2 = female; other = -9)
--   P = Phenotype
+-   P = Phenotype, the phenotype of the individual, usually coded as a
+    binary trait (e.g. affected=1, unaffected=2, missing=0)
+
+The remaining columns in the PED file contain genotype data for each
+individual.
+
 -   rs1 = SNP1
 -   rs2 = SNP2
 
@@ -102,7 +116,12 @@ the phenotype based on the code.
 ### MAP file
 
 Each line of the MAP file explains a single marker and contains four
-columns. MAP file for gender- and age-specific analyses were similar.
+columns. The MAP file is a tab-delimited text file that contains
+information about each SNP (single nucleotide polymorphism) that was
+genotyped in the study. Each row in the MAP file represents a single
+SNP, and each column represents a different type of information, such as
+the chromosome number, SNP identifier, and base-pair position. The
+columns in a MAP file include the following information:
 
 <table>
 <thead>
@@ -141,10 +160,11 @@ columns. MAP file for gender- and age-specific analyses were similar.
 </tbody>
 </table>
 
--   Chr = Chromosome (1-22, X, Y or 0 if unplaced)
--   rs = snp identifier
--   GD = Genetic distance (morgans)
--   BPP = Base-pair position (bp units)
+-   Chr = Chromosome (1-22, X, Y or 0 if unplaced), the chromosome
+    number on which the SNP is located
+-   rs = a unique identifier for the SNP
+-   GD = the distance between this SNP and the previous SNP (in Morgans)
+-   BPP = the position of the SNP on the chromosome (in base-pairs)
 
 The autosomes should be coded 1 through 22. The following other codes
 can be used to specify other chromosome types: <br>
@@ -180,6 +200,12 @@ can be used to specify other chromosome types: <br>
 </tr>
 </tbody>
 </table>
+
+Together, the PED and MAP files provide all the information needed to
+perform a GWAS. The genotype data in the PED file can be combined with
+the information about each SNP in the MAP file to test for associations
+between genotype and phenotype. This is typically done using a
+statistical software package, such as PLINK.
 
 ### Binary file format
 
