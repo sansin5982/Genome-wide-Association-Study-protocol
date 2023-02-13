@@ -22,7 +22,9 @@
 
 -   Set the path for these tools so you directly call them from a
     different folder. To set the path first you have enter in that
-    specific tools **export PATH=*P**A**T**H*:(pwd)**
+    specific tools
+
+**export PATH=*P**A**T**H*:(pwd)**
 
 ## Basic input files
 
