@@ -35,8 +35,52 @@ into binary format. Description of ped and map files is givne below:
 The PED file is a white-space (space or tab) delimited file: the first
 six mandatory columns are given below.
 
-|FID|IID|PID|MID|Sex|P|rs1|rs2| |—|—|—|—|—|—||—|—| |1|1|0|0|1|1|CT|AG|
-|2|2|0|0|0|1|CG|AA| |3|3|0|0|1|0|CC|TT|
+<table>
+<thead>
+<tr class="header">
+<th>FID</th>
+<th>IID</th>
+<th>PID</th>
+<th>MID</th>
+<th>Sex</th>
+<th>P</th>
+<th>rs1</th>
+<th>rs2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>CT</td>
+<td>AG</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>CG</td>
+<td>AA</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>CC</td>
+<td>TT</td>
+</tr>
+</tbody>
+</table>
 
 Legend:
 
