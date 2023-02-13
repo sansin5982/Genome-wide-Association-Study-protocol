@@ -90,6 +90,8 @@ Legend:
 -   MID = Maternal ID
 -   Sex (1 = male; 2 = female; other = -9)
 -   P = Phenotype
+-   rs1 = SNP1
+-   rs2 = SNP2
 
 Sixth column represents phenotype. The phenotype can be either an
 affection status or quantitative trait. Plink can automatically detect
@@ -100,10 +102,47 @@ the phenotype based on the code.
 Each line of the MAP file explains a single marker and contains four
 columns. MAP file for gender- and age-specific analyses were similar.
 
--   Chromosome (1-22, X, Y or 0 if unplaced)
--   rs# or snp identifier
--   Genetic distance (morgans)
--   Base-pair position (bp units)
+<table>
+<thead>
+<tr class="header">
+<th>Chr</th>
+<th>SNP</th>
+<th>GD</th>
+<th>BPP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>rs1</td>
+<td>0</td>
+<td>870050</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>rs2</td>
+<td>0</td>
+<td>870150</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>rs3</td>
+<td>0</td>
+<td>870322</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>rs4</td>
+<td>0</td>
+<td>870878</td>
+</tr>
+</tbody>
+</table>
+
+-   Chr = Chromosome (1-22, X, Y or 0 if unplaced)
+-   rs = snp identifier
+-   GD = Genetic distance (morgans)
+-   BPP = Base-pair position (bp units)
 
 The autosomes should be coded 1 through 22. The following other codes
 can be used to specify other chromosome types: <br>
