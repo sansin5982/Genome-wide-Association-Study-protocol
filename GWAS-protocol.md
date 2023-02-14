@@ -18,10 +18,14 @@ high-throughput genotyping technologies, GWAS has revolutionized our
 understanding of the genetic basis of complex traits and has become a
 powerful tool in the field of genetics and genomics.
 
+# Material and Methods
+
 **Tools, Software and Files Required**
 
--   **plink** <https://www.cog-genomics.org/plink2/>
-    <https://www.cog-genomics.org/plink/2.0/>
+-   **plink**
+
+    -   [link1](https://www.cog-genomics.org/plink2/)
+    -   [link2](https://www.cog-genomics.org/plink/2.0/)
 
 -   **bcftools and samtools** <http://www.htslib.org/download/>
 
@@ -47,7 +51,7 @@ powerful tool in the field of genetics and genomics.
 ## Basic input files
 
 We expect two basic input files, Raw.ped and Raw.map, for association
-analysis. Here Raw is the file name. PED (Plink Pedigree File) and MAP
+analysis. Here, raw is the file name. PED (Plink Pedigree File) and MAP
 (Plink Map File) are file formats commonly used in genome-wide
 association studies (GWAS). These files can also be converted into
 binary format.
