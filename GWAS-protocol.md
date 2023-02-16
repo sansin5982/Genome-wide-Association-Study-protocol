@@ -153,10 +153,9 @@ unique identifier for each individual within a family. The third column
 contains the phenotype information for each individual, such as disease
 status or a quantitative trait.
 
-For example, a FAM file might look like this: <br><br>
+For example, a FAM file might look like this: <br>
 \|familyID\|individualID\|fatherID\|motherID\|sex\|phenotype\|
-\|—\|—\|—\|—\|—\|—\| \|1\|1\|0\|0\|1\|1\| \|1\|2\|0\|0\|2\|0\|
-\|1\|3\|1\|2\|1\|1\| \|1\|4\|1\|2\|2\|0\|
+\|—\|—\|—\|—\|—\|—\|
 
 # Methods
 
