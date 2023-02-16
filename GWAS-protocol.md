@@ -23,25 +23,19 @@ powerful tool in the field of genetics and genomics.
 **Tools, Software and Files Required**
 
 -   **plink**
-
     -   [link1](https://www.cog-genomics.org/plink2/)
     -   [link2](https://www.cog-genomics.org/plink/2.0/)
-
--   **bcftools and samtools** <http://www.htslib.org/download/>
-
--   **vcftools** <https://sourceforge.net/projects/vcftools/files/>
-
+-   **bcftools and samtools**
+    -   [link](http://www.htslib.org/download/)
+-   **vcftools**
+    -   [link](https://sourceforge.net/projects/vcftools/files/)
 -   **Check for compatibility with the input required by the Sanger
     server.**
-    <http://qbrc.swmed.edu/zhanxw/software/checkVCF/checkVCF-20140116.tar.gz>
-
+    -   [link](http://qbrc.swmed.edu/zhanxw/software/checkVCF/checkVCF-20140116.tar.gz)
 -   **Haplotype Reference Consortium v1.1 panel for HRC site list**
-    (HRC.r1-1.GRCh37.wgs.mac5.sites.tab)
-    <ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/>
-
+    -   [link](HRC.r1-1.GRCh37.wgs.mac5.sites.tab)[link](ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/)
 -   **HRC preparation checking tool**
-    <https://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim-v4.2.9.zipa>
-
+    -   [link](https://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim-v4.2.9.zipa)
 -   Set the path for these tools so you directly call them from a
     different folder. To set the path first you have enter in that
     specific tools
@@ -131,11 +125,20 @@ the information about each SNP in the MAP file to test for associations
 between genotype and phenotype. This is typically done using a
 statistical software package, such as PLINK.
 
-### Binary file format
+## Binary file format
 
+Binary file formats are an alternative to the text-based PED/MAP file
+formats commonly used in GWAS. Binary file formats offer several
+advantages over text-based file formats, including faster loading times,
+reduced storage space requirements, and improved data compression.
 Binary files (fam, bed and bin) are smaller in size and run faster than
-basic files (ped and map). Quality control, statistical analysis and
-data entry (phenotype) are much easier and takes lesser time.
+basic files (ped and map).
+
+### BED
+
+### BIM
+
+### FAM
 
 # Methods
 
