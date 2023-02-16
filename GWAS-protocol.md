@@ -140,6 +140,24 @@ basic files (ped and map).
 
 ### FAM
 
+In a GWAS, a FAM file is a text file that contains information about the
+individuals being studied. The FAM file is used to specify the familial
+relationships and phenotype information for each individual in the
+study.
+
+The FAM file typically contains three columns of data separated by
+whitespace or tab characters. The first column contains a family ID,
+which is a unique identifier for a particular family or group of related
+individuals. The second column contains an individual ID, which is a
+unique identifier for each individual within a family. The third column
+contains the phenotype information for each individual, such as disease
+status or a quantitative trait.
+
+For example, a FAM file might look like this:
+\|familyID\|individualID\|fatherID\|motherID\|sex\|phenotype\|
+\|—\|—\|—\|—\|—\|—\| \|1\|1\|0\|0\|1\|1\| \|1\|2\|0\|0\|2\|0\|
+\|1\|3\|1\|2\|1\|1\| \|1\|4\|1\|2\|2\|0\|
+
 # Methods
 
 ## Steps to perform Genome-wide association study:
