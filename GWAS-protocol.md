@@ -2,14 +2,15 @@
 
 A genome-wide association study (GWAS) is a type of study that uses
 genomic data to identify genetic variations that are associated with a
-particular trait or disease. It involves genotyping a large number of
-single nucleotide polymorphisms (SNPs) across the entire genome of many
-individuals and comparing the frequency of these SNPs in individuals
-with the trait or disease of interest compared to those without the
-trait or disease. The goal of a GWAS is to identify specific genetic
-loci that are associated with the trait or disease, which can provide
-insight into the underlying biological mechanisms and potentially lead
-to the development of new diagnostic tools and treatments.
+particular trait or disease (Marees et al,2018). It involves genotyping
+a large number of single nucleotide polymorphisms (SNPs) across the
+entire genome of many individuals and comparing the frequency of these
+SNPs in individuals with the trait or disease of interest compared to
+those without the trait or disease. The goal of a GWAS is to identify
+specific genetic loci that are associated with the trait or disease,
+which can provide insight into the underlying biological mechanisms and
+potentially lead to the development of new diagnostic tools and
+treatments.
 
 GWAS has been used to identify genetic risk factors for a wide range of
 complex diseases and traits, including cardiovascular disease, type 2
@@ -447,3 +448,9 @@ statistical test result. - Most common reason is not biological,
 
 <br> PLINK Command <br> **./plink2 –bfile 4_QC_Raw_GWAS_data –geno 0.01
 –hwe 0.00000001 –make-bed –out 5_QC_Raw_GWAS_data**
+
+# References
+
+1- Marees, A.T., et al, 2018.A tutorial on conducting genome‐wide
+association studies: Quality control and statistical analysis. *Int J
+Methods Psychiatr Res*, Jun; 27(2): e1608.
