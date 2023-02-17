@@ -23,11 +23,7 @@ powerful tool in the field of genetics and genomics.
 
 ### Allele
 
-``` r
-knitr::include_graphics("Allele.jpg")
-```
-
-![](Allele.jpg)
+![](Gender_check.png)
 
 At a specific genomic location, an allele is one of two or more
 variations of the DNA sequence (a segment of bases or a single base).
