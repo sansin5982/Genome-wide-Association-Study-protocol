@@ -2,7 +2,7 @@
 
 A genome-wide association study (GWAS) is a type of study that uses
 genomic data to identify genetic variations that are associated with a
-particular trait or disease (Marees et al,2018). It involves genotyping
+particular trait or disease (Marees et al, 2018). It involves genotyping
 a large number of single nucleotide polymorphisms (SNPs) across the
 entire genome of many individuals and comparing the frequency of these
 SNPs in individuals with the trait or disease of interest compared to
@@ -18,6 +18,46 @@ diabetes, cancer, and many others. By utilizing large sample sizes and
 high-throughput genotyping technologies, GWAS has revolutionized our
 understanding of the genetic basis of complex traits and has become a
 powerful tool in the field of genetics and genomics.
+
+# Key Words in GWAS
+
+## Allele
+
+## Gene
+
+## Haplotype
+
+## Hardy–Weinberg (dis)equilibrium (HWE)
+
+## Heterozygosity
+
+## Homozygosity
+
+## Linkage disequilibrium (LD)
+
+## Minor allele frequency
+
+## Multiple comparison
+
+## POpulation stratification
+
+<img src="Population_stratification.jpg" alt="Population Stratification" width="60%" />
+<p class="caption">
+Population Stratification
+</p>
+
+-   A threat to validity of a genetic association studies and may
+    introduce bias. Population stratification may confound results, if
+    not adjusted. A population in a genetic association study may arise
+    from two distinct sub-populations which may differ in their genetic
+    ancestry. The presence of systematic differences in allele
+    frequencies between these two sub populations may confound the
+    result. There are thousands of neutral loci, known as genomic
+    controls used to correct for population stratification in GWAS.
+
+## Relatedness
+
+## Single Nucleotide Polymorhisms
 
 # Material and Methods
 
@@ -389,22 +429,6 @@ Relatedness
 
 #### Identification of Individuals of divergent ancestry
 
-**Population Stratification**
-
-<img src="Population_stratification.jpg" alt="Population Stratification" width="60%" />
-<p class="caption">
-Population Stratification
-</p>
-
--   A threat to validity of a genetic association studies and may
-    introduce bias. Population stratification may confound results, if
-    not adjusted. A population in a genetic association study may arise
-    from two distinct sub-populations which may differ in their genetic
-    ancestry. The presence of systematic differences in allele
-    frequencies between these two sub populations may confound the
-    result. There are thousands of neutral loci, known as genomic
-    controls used to correct for population stratification in GWASs.
-
 1.  **Multidimensional scaling** <br> PLINK Command <br> **plink –bfile
     3_QC_Raw_GWAS_data –extract raw-GWAS-data.prune.in –genome –cluster
     –mds-plot 10**
@@ -451,6 +475,6 @@ statistical test result. - Most common reason is not biological,
 
 # References
 
-1- Marees, A.T., et al, 2018.A tutorial on conducting genome‐wide
+1- Marees, A.T., et al, 2018. A tutorial on conducting genome‐wide
 association studies: Quality control and statistical analysis. *Int J
 Methods Psychiatr Res*, Jun; 27(2): e1608.
