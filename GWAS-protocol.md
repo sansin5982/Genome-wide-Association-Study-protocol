@@ -28,7 +28,7 @@ powerful tool in the field of genetics and genomics.
 Relatedness
 </p>
 
-<img src="Allele.jpg" alt="Allele" width="60%" />
+<img src="Allele.jpg" alt="Allele"  />
 <p class="caption">
 Allele
 </p>
