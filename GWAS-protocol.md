@@ -23,10 +23,11 @@ powerful tool in the field of genetics and genomics.
 
 ### Allele
 
-<img src="Allele.jpg" alt="Allele"  />
-<p class="caption">
-Allele
-</p>
+``` r
+knitr::include_graphics("Allele.jpg")
+```
+
+![](Allele.jpg)
 
 At a specific genomic location, an allele is one of two or more
 variations of the DNA sequence (a segment of bases or a single base).
@@ -36,6 +37,28 @@ homozygous for the allele if the two alleles are identical. The person
 is heterozygous if the alleles are distinct from one another.
 
 ### Gene
+
+A gene is a sequence of DNA that contains the instructions for producing
+a particular protein or RNA molecule, which performs a specific function
+in a cell. Genes are the basic units of heredity and are passed down
+from one generation to the next. Genes are located on chromosomes, which
+are long strands of DNA that are found in the nucleus of a cell. The
+human genome contains about 20,000 genes, which code for a wide variety
+of proteins and RNA molecules involved in processes such as metabolism,
+growth and development, and immune system function.
+
+The DNA sequence of a gene determines the specific instructions for
+producing a protein or RNA molecule. This sequence is made up of four
+types of nucleotides: adenine (A), thymine (T), cytosine (C), and
+guanine (G). The sequence of nucleotides in a gene determines the
+sequence of amino acids in the protein that is produced, which in turn
+determines the protein’s shape and function.
+
+Genes can be affected by mutations, which are changes in the DNA
+sequence. Some mutations can result in altered or nonfunctional
+proteins, leading to diseases or other genetic disorders. Other
+mutations may have no effect or even result in beneficial changes that
+can be passed down to future generations through natural selection.
 
 ### Haplotype
 
@@ -53,19 +76,15 @@ is heterozygous if the alleles are distinct from one another.
 
 ### Population stratification
 
-<img src="Population_stratification.jpg" alt="Population Stratification" width="60%" />
-<p class="caption">
-Population Stratification
-</p>
-
--   Population stratification is a threat to the validity of genetic
-    association studies. Population stratification may confound results
-    if not adjusted. A population in a genetic association study may
-    arise from two distinct sub-populations which may differ in their
-    genetic ancestry. Systematic differences in allele frequencies
-    between these two subpopulations may confound the result. There are
-    thousands of neutral loci, known as **genomic controls**, used to
-    correct for population stratification in GWAS.
+<img src="Population_stratification.jpg" width="60%" style="display: block; margin: auto;" /> -
+Population stratification is a threat to the validity of genetic
+association studies. Population stratification may confound results if
+not adjusted. A population in a genetic association study may arise from
+two distinct sub-populations which may differ in their genetic ancestry.
+Systematic differences in allele frequencies between these two
+subpopulations may confound the result. There are thousands of neutral
+loci, known as **genomic controls**, used to correct for population
+stratification in GWAS.
 
 In GWAS, researchers typically examine the association between genetic
 variants and traits or diseases of interest in a study population.
