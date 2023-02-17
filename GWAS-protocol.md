@@ -23,6 +23,18 @@ powerful tool in the field of genetics and genomics.
 
 ### Allele
 
+<img src="Allele.jpg" alt="Allele" width="60%" />
+<p class="caption">
+Allele
+</p>
+
+At a specific genomic location, an allele is one of two or more
+variations of the DNA sequence (a segment of bases or a single base).
+For each genomic region with such variation, an individual inherits two
+alleles, one from the mother and another from the father. The person is
+homozygous for the allele if the two alleles are identical. The person
+is heterozygous if the alleles are distinct from one another.
+
 ### Gene
 
 ### Haplotype
@@ -40,6 +52,11 @@ powerful tool in the field of genetics and genomics.
 ### Multiple comparison
 
 ### Population stratification
+
+<img src="Population_stratification.jpg" alt="Population Stratification" width="60%" />
+<p class="caption">
+Population Stratification
+</p>
 
 -   Population stratification is a threat to the validity of genetic
     association studies. Population stratification may confound results
@@ -67,8 +84,6 @@ often based on patterns of genetic variation across the genome. By
 accounting for population stratification in this way, researchers can
 more accurately identify genetic variants associated with the trait or
 disease of interest in the study population.
-
-![Population Stratification](Population%20stratificationQQplot.jpg)
 
 ### Relatedness
 
