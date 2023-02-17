@@ -41,11 +41,6 @@ powerful tool in the field of genetics and genomics.
 
 ### Population stratification
 
-<img src="Population_stratification.jpg" alt="Population Stratification" width="60%" />
-<p class="caption">
-Population Stratification
-</p>
-
 -   Population stratification is a threat to the validity of genetic
     association studies. Population stratification may confound results
     if not adjusted. A population in a genetic association study may
@@ -73,10 +68,7 @@ accounting for population stratification in this way, researchers can
 more accurately identify genetic variants associated with the trait or
 disease of interest in the study population.
 
-<img src="Population stratificationQQplot.jpg" alt="Population Stratification" width="60%" />
-<p class="caption">
-Population Stratification
-</p>
+![Population Stratification](Population%20stratificationQQplot.jpg)
 
 ### Relatedness
 
