@@ -19,45 +19,68 @@ high-throughput genotyping technologies, GWAS has revolutionized our
 understanding of the genetic basis of complex traits and has become a
 powerful tool in the field of genetics and genomics.
 
-# Key Words in GWAS
+## Key Words in GWAS
 
-## Allele
+### Allele
 
-## Gene
+### Gene
 
-## Haplotype
+### Haplotype
 
-## Hardy–Weinberg (dis)equilibrium (HWE)
+### Hardy–Weinberg (dis)equilibrium (HWE)
 
-## Heterozygosity
+### Heterozygosity
 
-## Homozygosity
+### Homozygosity
 
-## Linkage disequilibrium (LD)
+### Linkage disequilibrium (LD)
 
-## Minor allele frequency
+### Minor allele frequency
 
-## Multiple comparison
+### Multiple comparison
 
-## POpulation stratification
+### Population stratification
 
 <img src="Population_stratification.jpg" alt="Population Stratification" width="60%" />
 <p class="caption">
 Population Stratification
 </p>
 
--   A threat to validity of a genetic association studies and may
-    introduce bias. Population stratification may confound results, if
-    not adjusted. A population in a genetic association study may arise
-    from two distinct sub-populations which may differ in their genetic
-    ancestry. The presence of systematic differences in allele
-    frequencies between these two sub populations may confound the
-    result. There are thousands of neutral loci, known as genomic
-    controls used to correct for population stratification in GWAS.
+-   Population stratification is a threat to the validity of genetic
+    association studies. Population stratification may confound results
+    if not adjusted. A population in a genetic association study may
+    arise from two distinct sub-populations which may differ in their
+    genetic ancestry. Systematic differences in allele frequencies
+    between these two subpopulations may confound the result. There are
+    thousands of neutral loci, known as **genomic controls**, used to
+    correct for population stratification in GWAS.
 
-## Relatedness
+In GWAS, researchers typically examine the association between genetic
+variants and traits or diseases of interest in a study population.
+However, if the study population is not genetically homogeneous, then
+associations between genetic variants and traits or diseases may be
+confounded by population stratification. This is because the genetic
+variants associated with a particular trait or disease may differ in
+frequency between different sub populations.
 
-## Single Nucleotide Polymorhisms
+To avoid population stratification in GWAS, researchers can use several
+methods, such as principal component analysis (PCA) or multidimensional
+scaling (MDS), to identify and correct population stratification. These
+methods involve examining the genetic variation within the study
+population and identifying groups of genetically similar individuals,
+often based on patterns of genetic variation across the genome. By
+accounting for population stratification in this way, researchers can
+more accurately identify genetic variants associated with the trait or
+disease of interest in the study population.
+
+<img src="Population stratificationQQplot.jpg" alt="Population Stratification" width="60%" />
+<p class="caption">
+Population Stratification
+</p>
+
+### Relatedness
+
+### Single Nucleotide Polymorhisms
 
 # Material and Methods
 
