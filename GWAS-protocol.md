@@ -23,11 +23,6 @@ powerful tool in the field of genetics and genomics.
 
 ### Allele
 
-<img src="Related_samples.png" alt="Relatedness"  />
-<p class="caption">
-Relatedness
-</p>
-
 <img src="Allele.jpg" alt="Allele"  />
 <p class="caption">
 Allele
