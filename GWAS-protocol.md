@@ -138,6 +138,35 @@ basic files (ped and map).
 
 ### BIM
 
+A BIM file is a file format used to store and organize data on genetic
+variants that are included in a study. The BIM file contains information
+on the chromosome, variant ID, position, and allele information for each
+genetic variant.
+
+The BIM file is typically a tab-delimited text file with six columns:
+chromosome number, variant ID, genetic position, base-pair position, the
+reference allele, and the alternate allele. The chromosome number column
+specifies which chromosome the genetic variant is located on, while the
+variant ID column provides a unique identifier for the variant. The
+genetic position and base-pair position columns provide information on
+the location of the variant on the chromosome. The reference allele and
+alternate allele columns provide information on the two possible alleles
+for the variant.
+
+GWAS typically involve the analysis of large numbers of genetic
+variants, and the BIM file helps to ensure that data is organized and
+analyzed correctly. The BIM file is used in conjunction with other
+files, such as genotype files (e.g., PLINK binary files), to identify
+associations between genetic variants and traits or diseases of
+interest.
+
+| Chr | SNP | GD  | BPP    | Allele1 | Allele2 |
+|-----|-----|-----|--------|---------|---------|
+| 1   | rs1 | 0   | 870050 | C       | T       |
+| 1   | rs2 | 0   | 870150 | A       | G       |
+| 1   | rs3 | 0   | 870322 | G       | G       |
+| 1   | rs4 | 0   | 870878 | C       | A       |
+
 ### FAM
 
 In a GWAS, a FAM file is a text file that contains information about the
@@ -162,7 +191,16 @@ For example, a FAM file might look like this:
 | 1        | 3            | 1        | 2        | 1   | 1         |
 | 1        | 4            | 1        | 2        | 2   | 0         |
 
-# Methods
+In this example, there is one family with four individuals. The first
+column specifies the family ID, which is 1 in this case. The second
+column specifies the individual ID, ranging from 1 to 4. The third and
+fourth columns specify the IDs of the father and mother for each
+individual, respectively. The fifth column specifies the sex of each
+individual (1 for male and 2 for female). The sixth column specifies the
+phenotype, with 1 indicating affected by the disease or trait of
+interest, and 0 indicating unaffected.The phenotype can be either a
+quantitative trait or an affection status column: PLINK will
+automatically detect which type. \# Methods
 
 ## Steps to perform Genome-wide association study:
 
