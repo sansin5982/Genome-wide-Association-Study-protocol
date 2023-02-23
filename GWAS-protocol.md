@@ -30,7 +30,7 @@ alleles, one from the mother and another from the father. The person is
 homozygous for the allele if the two alleles are identical. The person
 is heterozygous if the alleles are distinct from one another.
 
-<img src="Allele.jpg" width="60%" style="display: block; margin: auto;" />
+<img src="Allele.jpg" width="40%" style="display: block; margin: auto;" />
 
 ### Gene
 
