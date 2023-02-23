@@ -5,8 +5,8 @@
         files</a>
         -   <a href="#ped-file" id="toc-ped-file">PED File</a>
         -   <a href="#map-file" id="toc-map-file">MAP file</a>
-    -   <a href="#binary-file-format" id="toc-binary-file-format">Binary file
-        format</a>
+    -   <a href="#binary-ped-files" id="toc-binary-ped-files">Binary PED
+        files</a>
         -   <a href="#bed" id="toc-bed">BED</a>
         -   <a href="#bim" id="toc-bim">BIM</a>
         -   <a href="#fam" id="toc-fam">FAM</a>
@@ -289,16 +289,21 @@ the information about each SNP in the MAP file to test for associations
 between genotype and phenotype. This is typically done using a
 statistical software package, such as PLINK.
 
-## Binary file format
+## Binary PED files
 
 Binary file formats are an alternative to the text-based PED/MAP file
-formats commonly used in GWAS. Binary file formats offer several
-advantages over text-based file formats, including faster loading times,
-reduced storage space requirements, and improved data compression.
-Binary files (fam, bed and bin) are smaller in size and run faster than
-basic files (ped and map).
+formats commonly used in GWAS. Binary formats offer several advantages
+over text-based file formats, including faster loading times, reduced
+storage space requirements, and improved data compression. Binary files
+contain extended map file (a.bim) having information about allele names,
+binary ped file (a\*bed) and pedigree/phenotype information in separate
+file (a.fam).
 
 ### BED
+
+The BED file contains information on the presence or absence of a
+specific allele for each marker at each sample, represented as binary
+values (0 or 1).
 
 ### BIM
 
@@ -465,15 +470,15 @@ per-individual QC for a GWAS data set.
 
 ### Step 1: Converting ped and map into binary format
 
-<br> **./plink –file raw\_GWAS\_data –make-bed** <br> <br> Note: Earlier
+<br> ./plink –file raw\_GWAS\_data –make-bed <br> <br> Note: Earlier
 version of plink reads X chromosome as 23, Y chromosome as 24,
 pseudo-autosomal region of X as 25 and mitochondrial as 26. However,
 plink2 reads them with X, Y etc. <br> <br>
 
 ### Step 2: Identification of individuals with discordant sex information
 
-<br> PLINK command <br> **plink –bfile raw\_GWAS\_data –check-sex –out
-GWAS\_Sex\_Check** <br>
+<br> PLINK command <br> ./plink –bfile raw\_GWAS\_data –check-sex –out
+GWAS\_Sex\_Check <br>
 
 -   Command Create a list of individuals with discordant sex data in
     file “GWAS\_Sex\_Check.sexcheck”. Column 3 denotes ascertained sex

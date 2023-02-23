@@ -1,7 +1,9 @@
 ---
 title: "GWAS protocol"
-output: md_document
 date: "2023-02-12"
+output:
+  md_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -14,52 +16,79 @@ library(SNPRelate)
 ```
 
 # Introduction
+
+A genome-wide association study (GWAS) is a type of study that uses genomic data to identify genetic variations that are associated with a particular trait or disease (Marees et al, 2018). It involves genotyping a large number of single nucleotide polymorphisms (SNPs) across the entire genome of many individuals and comparing the frequency of these SNPs in individuals with the trait or disease of interest compared to those without the trait or disease. The goal of a GWAS is to identify specific genetic loci that are associated with the trait or disease, which can provide insight into the underlying biological mechanisms and potentially lead to the development of new diagnostic tools and treatments.
+
+GWAS has been used to identify genetic risk factors for a wide range of complex diseases and traits, including cardiovascular disease, type 2 diabetes, cancer, and many others. By utilizing large sample sizes and high-throughput genotyping technologies, GWAS has revolutionized our understanding of the genetic basis of complex traits and has become a powerful tool in the field of genetics and genomics.
+
+# Material and Methods
 **Tools, Software and Files Required**
 
 - **plink**
-https://www.cog-genomics.org/plink2/
-https://www.cog-genomics.org/plink/2.0/
+  - [link1](https://www.cog-genomics.org/plink2/)
+  - [link2](https://www.cog-genomics.org/plink/2.0/)
 
-- **bcftools and samtools**
-http://www.htslib.org/download/
+- **bcftools and samtools** 
+  - [link](http://www.htslib.org/download/)
 
-- **vcftools**
-https://sourceforge.net/projects/vcftools/files/
+- **vcftools** 
+  - [link](https://sourceforge.net/projects/vcftools/files/)
 
-- **Check for compatibility with the input required by the Sanger server.**
-http://qbrc.swmed.edu/zhanxw/software/checkVCF/checkVCF-20140116.tar.gz
+- **Check for compatibility with the input required by the Sanger server.** 
+  - [link](http://qbrc.swmed.edu/zhanxw/software/checkVCF/checkVCF-20140116.tar.gz)
 
-- **Haplotype Reference Consortium v1.1 panel for HRC site list** (HRC.r1-1.GRCh37.wgs.mac5.sites.tab)
-ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/
+- **Haplotype Reference Consortium v1.1 panel for HRC site list**  
+  - [link](HRC.r1-1.GRCh37.wgs.mac5.sites.tab)[link](ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/)
 
-- **HRC preparation checking tool**
-https://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim-v4.2.9.zipa
+- **HRC preparation checking tool** 
+  - [link](https://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim-v4.2.9.zipa)
 
 - Set the path for these tools so you directly call them from a different folder. To set the path first you have enter in that specific tools
+
 **export PATH=$PATH:$(pwd)**
 
 ## Basic input files
-
-We expect two basic input files, Raw.ped and Raw.map, for association analysis. Here Raw is the file name. These files can also be converted into binary format. Description of ped and map files is givne below:
+We expect two basic input files, Raw.ped and Raw.map, for association analysis. Here, raw is the file name. PED (Plink Pedigree File) and MAP (Plink Map File) are file formats commonly used in genome-wide association studies (GWAS). These files can also be converted into binary format. 
 
 ### PED File
-The PED file is a white-space (space or tab) delimited file: the first six mandatory columns are given below.
-- Family ID
-- Individual ID
-- Paternal ID
-- Maternal ID
+The PED file is a tab-delimited text file that contains information about individuals in a study, including their family relationships and genotype data. Each row in the PED file represents a single individual, and each column represents a different type of information, such as the individual's family ID, individual ID, and genotype data. The first six columns in a PED file are required and include the following information:
+
+|FID|IID|PID|MID|Sex|P|rs1|rs2|
+|---|---|---|---|---|---|---|---|
+|1|1|0|0|1|1|CT|AG|
+|2|2|0|0|0|1|CG|AA|
+|3|3|0|0|1|0|CC|TT|
+
+
+- FID = Family ID,a unique identifier for the family to which the individual belongs
+- IID = Individual ID, a unique identifier for the individual within the family
+- PID = Paternal ID,the individual ID of the father (-9 if unknown)
+- MID = Maternal ID, the individual ID of the mother (-9 if unknown)
 - Sex (1 = male; 2 = female; other = -9)
-- Phenotype
+- P = Phenotype, the phenotype of the individual, usually coded as a binary trait (e.g. affected=1, unaffected=2, missing=0)
+
+The remaining columns in the PED file contain genotype data for each individual.
+
+- rs1 = SNP1
+- rs2 = SNP2
 
 Sixth column represents phenotype. The phenotype can be either an affection status or quantitative trait. Plink can automatically detect the phenotype based on the code.
 
 ### MAP file
-Each line of the MAP file explains a single marker and contains four columns. MAP file for gender- and age-specific analyses were similar.
+Each line of the MAP file explains a single marker and contains four columns. The MAP file is a tab-delimited text file that contains information about each SNP (single nucleotide polymorphism) that was genotyped in the study. Each row in the MAP file represents a single SNP, and each column represents a different type of information, such as the chromosome number, SNP identifier, and base-pair position. The columns in a MAP file include the following information:
 
-- Chromosome (1-22, X, Y or 0 if unplaced)
-- rs# or snp identifier
-- Genetic distance (morgans)
-- Base-pair position (bp units)
+|Chr|SNP|GD|BPP|
+|---|---|---|---|
+|1|rs1|0|870050|
+|1|rs2|0|870150|
+|1|rs3|0|870322|
+|1|rs4|0|870878|
+
+
+- Chr = Chromosome (1-22, X, Y or 0 if unplaced), the chromosome number on which the SNP is located
+- rs = a unique identifier for the SNP
+- GD = the distance between this SNP and the previous SNP (in Morgans)
+- BPP = the position of the SNP on the chromosome (in base-pairs)
 
 The autosomes should be coded 1 through 22. The following other codes can be used to specify other chromosome types: 
 <br>
@@ -71,35 +100,71 @@ The autosomes should be coded 1 through 22. The following other codes can be use
 |XY|Pseudo-autosomal region of X|25|  
 |MT|Mitochondrial|26|
 
-### Binary file format
-Binary files (fam, bed and bin) are smaller in size and run faster than basic files (ped and map). Quality control, statistical analysis and data entry (phenotype) are much easier and takes lesser time. 
+Together, the PED and MAP files provide all the information needed to perform a GWAS. The genotype data in the PED file can be combined with the information about each SNP in the MAP file to test for associations between genotype and phenotype. This is typically done using a statistical software package, such as PLINK.
 
+## Binary PED files 
+Binary file formats are an alternative to the text-based PED/MAP file formats commonly used in GWAS. Binary formats offer several advantages over text-based file formats, including faster loading times, reduced storage space requirements, and improved data compression. Binary files contain extended map file (a.bim) having information about allele names, binary ped file (a*bed) and pedigree/phenotype information in separate file (a.fam). 
+
+### BED
+
+The BED file contains information on the presence or absence of a specific allele for each marker at each sample, represented as binary values (0 or 1). 
+
+### BIM
+
+A BIM file is a file format used to store and organize data on genetic variants that are included in a study. The BIM file contains information on the chromosome, variant ID, position, and allele information for each genetic variant.
+
+The BIM file is typically a tab-delimited text file with six columns: chromosome number, variant ID, genetic position, base-pair position, the reference allele, and the alternate allele. The chromosome number column specifies which chromosome the genetic variant is located on, while the variant ID column provides a unique identifier for the variant. The genetic position and base-pair position columns provide information on the location of the variant on the chromosome. The reference allele and alternate allele columns provide information on the two possible alleles for the variant.
+
+GWAS typically involve the analysis of large numbers of genetic variants, and the BIM file helps to ensure that data is organized and analyzed correctly. The BIM file is used in conjunction with other files, such as genotype files (e.g., PLINK binary files), to identify associations between genetic variants and traits or diseases of interest.
+
+|Chr|SNP|GD|BPP|Allele1|Allele2
+|---|---|---|---|---|---|
+|1|rs1|0|870050|C|T|
+|1|rs2|0|870150|A|G|
+|1|rs3|0|870322|G|G
+|1|rs4|0|870878|C|A|
+
+### FAM
+In a GWAS, a FAM file is a text file that contains information about the individuals being studied. The FAM file is used to specify the familial relationships and phenotype information for each individual in the study.
+
+The FAM file typically contains three columns of data separated by whitespace or tab characters. The first column contains a family ID, which is a unique identifier for a particular family or group of related individuals. The second column contains an individual ID, which is a unique identifier for each individual within a family. The third column contains the phenotype information for each individual, such as disease status or a quantitative trait.
+
+For example, a FAM file might look like this:
+
+
+|familyID|individualID|fatherID|motherID|sex|phenotype|
+|---|---|---|---|---|---|
+|1|1|0|0|1|1|
+|1|2|0|0|2|0|
+|1|3|1|2|1|1|
+|1|4|1|2|2|0|
+
+In this example, there is one family with four individuals. The first column specifies the family ID, which is 1 in this case. The second column specifies the individual ID, ranging from 1 to 4. The third and fourth columns specify the IDs of the father and mother for each individual, respectively. The fifth column specifies the sex of each individual (1 for male and 2 for female). The sixth column specifies the phenotype, with 1 indicating affected by the disease or trait of interest, and 0 indicating unaffected.The phenotype can be either a quantitative trait or an affection status column: PLINK will automatically detect which type. 
 # Methods 
 
-## Steps to perform Genome-wide association study:
+## Steps to perform quality control in a Genome-wide association study:
 
-1. If we get ped and map file, first should convert it into binary format (bed, bim and fam)
+A GWAS use thousands of markers to test a genetic association. Even a low rate of error or bias will introduce false positive associations. It has been suggested that removal of handful individuals or small percentage of markers should not markedly decrease the overall power of the study. Removal of one marker has greater impact than removal of one individual. Removal of one marker is potentially an overlooked disease association. Thus, implementing QC per-individual before QC per-marker will maximize the number of markers remaining in the study.
+
+### Per Individual Quality Control
+Per-individual QC screens genotype to identify subjects that may introduce bias, if not removed. There are several steps of per-individual QC for a GWAS data set.
+
+### Step 1: Converting ped and map into binary format
+
 <br>
-<br>
-**./plink –file raw_GWAS_data --make-bed**
+./plink –file raw_GWAS_data --make-bed
 <br>
 <br>
 Note: Earlier version of plink reads X chromosome as 23, Y chromosome as 24, pseudo-autosomal region of X as 25 and mitochondrial as 26. However, plink2 reads them with X, Y etc.
 <br>
 <br>
 
-**Quality controls steps:**
-<br>
-GWASs use thousands of markers to test association. Even a low rate of error or bias will introduce false positive associations. It has been suggested that removal of handful individuals or small percentage of markers should not markedly decrease the overall power of the study. Removal of one marker has greater impact than removal of one individual. Removal of one marker is potentially an overlooked disease association. Thus, implementing QC per-individual before QC per-marker will maximize the number of markers remaining in the study.  
 
-### Per Individual Quality Control
-Per-individual QC screens genotype to identify subjects that may introduce bias, if not removed. There are several steps of per-individual QC for a GWAS data set.
-
-#### Identification of individuals with discordant sex information 
+### Step 2: Identification of individuals with discordant sex information 
 <br>
 PLINK command
 <br>
-**plink --bfile raw_GWAS_data --check-sex --out GWAS_Sex_Check**
+./plink --bfile raw_GWAS_data --check-sex --out GWAS_Sex_Check
 <br>
 
 
@@ -143,11 +208,11 @@ ggplot(Gender, aes(x=F, y= PEDSEX, col = STATUS))+
 dev.off()
 ```
 
-```{r echo=FALSE, fig.cap="Discordant Sex information", out.width = '60%'}
+```{r echo=FALSE, fig.cap="Discordant Sex information", fig.align = "center"}
 knitr::include_graphics("Gender_check.png")
 ```
 
-#### Identification of individuals with elevated missing data rates
+### Step 3: Identification of individuals with elevated missing data rates
 <br>
 PLINK command
 <br>
@@ -156,7 +221,7 @@ PLINK command
 - Command creates the files “missing_data_rate.imiss” and “missing_data_rate.lmiss”.
 - The fourth column in the .imiss file (N_MISS) denotes the number of missing SNPs and the sixth column (F_MISS) denotes the proportion of missing SNPs per individual.
 
-#### Identification of individuals with outlying heterozygosity rate
+### Step 4: Identification of individuals with outlying heterozygosity rate
 <br>
 PLINK command
 <br>
@@ -216,10 +281,11 @@ ggplot(hetro_miss, aes(x = F_MISS, y = obs_hetero_rate))+
 dev.off()
 ```
 
-```{r echo=FALSE, fig.cap="Individual missingness and heterozygoisty rate", out.width = '60%'}
+```{r echo=FALSE, fig.cap="Individual missingness and heterozygoisty rate", fig.align = "center"}
 knitr::include_graphics("Missing_hetero_check.png")
 ```
-#### Identification of duplicated or related individuals
+
+### Step 5: Identification of duplicated or related individuals
 - Check the relatedness. Use the independent SNPs (pruning) for this analysis and limit to autosomal chromosome only
 <br>
 PLINK command
@@ -248,20 +314,13 @@ PLINK command
 |0.125|First Cousin|
 |0.0625|Second Cousin|
 
-```{r echo=FALSE, fig.cap="Relatedness", out.width = '100%'}
+```{r echo=FALSE, fig.cap="Relatedness", fig.align = "center"}
 knitr::include_graphics("Related_samples.png")
 ```
 
-#### Identification of Individuals of divergent ancestry
-**Population Stratification**
+### Step 6: Identification of Individuals of divergent ancestry
 
-```{r echo=FALSE, fig.cap="Population Stratification", out.width = '60%'}
-knitr::include_graphics("Population_stratification.jpg")
-```
-- A threat to validity of a genetic association studies and may introduce bias.
-Population stratification may confound results, if not adjusted. A population in a genetic association study may arise from two distinct sub-populations which may differ in their genetic ancestry. The presence of systematic differences in allele frequencies between these two sub populations may confound the result. There are thousands of neutral loci, known as genomic controls used to correct for population stratification in GWASs.
-
-1. **Multidimensional scaling**
+#### Approach 1: Multidimensional scaling
 <br>
 PLINK Command
 <br>
@@ -269,14 +328,14 @@ PLINK Command
 
 - Visualizing population structure using MDS is useful for identifying subpopulations, population stratification and systematic genotyping or sequencing errors, and can also be used to detect individual outliers that may need to be removed, e.g. European-Americans included in a study of African-Americans.
 
-2. **Principal component analysis**
+#### Approach 2: Principal component analysis
 <br>
 PLINK Command
 <br>
 **plink --bfile 3_QC_Raw_GWAS_data --genome --cluster --pca 10**
 - We can also utilize hapmap data to perform PCA
 
-### Per SNP quality control
+## Per SNP quality control
 #### Hardy Weinberg equilibrium
 - If the frequency of observed genotypes of a variant in a population can be derived
 from the observed allele frequencies, the genetic variant is said to be in
@@ -300,4 +359,62 @@ PLINK Command
 <br>
 **./plink2 --bfile 4_QC_Raw_GWAS_data --geno 0.01 --hwe 0.00000001 --make-bed --out 5_QC_Raw_GWAS_data**
 
+# References
+1- Marees, A.T., et al, 2018. A tutorial on conducting genome‐wide association studies: Quality control and statistical analysis. *Int J Methods Psychiatr Res*, Jun; 27(2): e1608.
 
+# Key Words in GWAS
+
+### Allele
+
+An allele is one of two or more DNA sequence variations (a segment of bases or a single base) at a specific genomic location. For each genomic region with such variation, an individual inherits two alleles, one from the mother and another from the father. The person is homozygous (BB or bb) for the allele if the two alleles are identical. The person is heterozygous (Bb) if the alleles are distinct. Here, allele B or b represents A, G, C, or T (REF: [link](https://www.genome.gov/genetics-glossary)).
+
+```{r echo=FALSE, out.width = "60%", fig.align = "center"}
+knitr::include_graphics("Allele.jpg")
+```
+
+### Gene
+A gene is a sequence of DNA that contains the instructions for producing a particular protein or RNA molecule, which performs a specific function in a cell. Genes are the basic units of heredity and are passed down from one generation to the next.
+Genes are located on chromosomes, which are long strands of DNA that are found in the nucleus of a cell. The human genome contains about 20,000 genes, which code for a wide variety of proteins and RNA molecules involved in processes such as metabolism, growth and development, and immune system function.
+
+The DNA sequence of a gene determines the specific instructions for producing a protein or RNA molecule. This sequence is made up of four types of nucleotides: adenine (A), thymine (T), cytosine (C), and guanine (G). The sequence of nucleotides in a gene determines the sequence of amino acids in the protein that is produced, which in turn determines the protein's shape and function.
+
+Genes can be affected by mutations, which are changes in the DNA sequence. Some mutations can result in altered or nonfunctional proteins, leading to diseases or other genetic disorders. Other mutations may have no effect or even result in beneficial changes that can be passed down to future generations through natural selection.
+
+### Genotype
+
+### Haplotype
+
+### Hardy–Weinberg (dis)equilibrium (HWE)
+
+### Heterozygosity
+
+### Homozygosity
+
+### Linkage disequilibrium (LD)
+
+### Minor allele frequency
+
+### Multiple comparison
+
+### Population stratification
+
+```{r echo=FALSE, out.width = "60%", fig.align = "center"}
+knitr::include_graphics("Population_stratification.jpg")
+```
+
+- Population stratification is a threat to the validity of genetic association studies. Population stratification may confound results if not adjusted. A population in a genetic association study may arise from two distinct sub-populations which may differ in their genetic ancestry. Systematic differences in allele frequencies between these two subpopulations may confound the result. There are thousands of neutral loci, known as **genomic controls**, used to correct for population stratification in GWAS.
+
+In GWAS, researchers typically examine the association between genetic variants and traits or diseases of interest in a study population. However, if the study population is not genetically homogeneous, then associations between genetic variants and traits or diseases may be confounded by population stratification. This is because the genetic variants associated with a particular trait or disease may differ in frequency between different sub populations.
+
+To avoid population stratification in GWAS, researchers can use several methods, such as principal component analysis (PCA) or multidimensional scaling (MDS), to identify and correct population stratification. These methods involve examining the genetic variation within the study population and identifying groups of genetically similar individuals, often based on patterns of genetic variation across the genome. By accounting for population stratification in this way, researchers can more accurately identify genetic variants associated with the trait or disease of interest in the study population.
+
+#### Principal component analysis
+Principal component analysis (PCA) is a statistical method used in genome-wide association studies (GWAS) to identify population structure and correct for potential confounding effects.
+
+PCA is a multivariate statistical technique that identifies linear combinations of the original variables that capture the largest amount of variation in the data. In the context of GWAS, PCA is typically applied to the genotype data to identify patterns of genetic variation that are associated with ancestry or population structure.
+
+
+
+### Relatedness
+
+### Single Nucleotide Polymorhisms
