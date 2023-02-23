@@ -64,43 +64,6 @@ with the trait or disease, which can provide insight into the underlying
 biological mechanisms and potentially lead to the development of new
 diagnostic tools and treatments.
 
-The human genome contains around 20,000 genes8. These genes are discrete
-segments of deoxyribonucleic acid (DNA) that convey information to
-protein via ribonucleic acid (RNA). Genetic variation refers to DNA
-sequence polymorphism83. An allele is one of the several forms of a DNA
-segment (e.g. a gene or locus). There are many forms and levels of
-genetic variations. The most common genetic variation that has been
-examined in this study is called a SNP. For example, the same nucleotide
-position may be occupied by a guanine (G) in one individual and a
-cytosine (C) in another. An allele, which occurs less frequent in a
-population is called a minor allele. In the example given below, C is
-the minor allele, and polymorphism will be represented as G&gt;C
-polymorphism.
-
-*S**u**b**j**e**c**t*1 : *A**C**T**G**A**C**T**C**A**T*
-
-*S**u**b**j**e**c**t*2 : *A**C**T**C**A**C**T**C**A**T*
-
-In this instance, the two nucleotides represent two different alleles.
-
-Subject 1 = GG (wild-type), both chromosomes have G allele and G allele
-is commonly present in the population
-
-*A**C**T**G**A**C**T**C**A**T*
-*A**C**T**G**A**C**T**C**A**T*
-
-Subject 2 = GC (heterozygote), one chromosome has G allele and another
-chromosome has C allele.
-
-ACTGACTCAT ACTCACTCAT
-
-Subject 3 = CC (homozygous variant), both chromosomes have C alleles,
-and C allele is less frequently present in the population. ACTCACTCAT
-ACTCACTCAT The wild-type genotype is the referent group in a statistical
-analysis. The other two genotypes may be included in the analysis as
-they are (gene dosage analysis) or may be pooled depending on the
-genetic model.
-
 GWAS has been used to identify genetic risk factors for a wide range of
 complex diseases and traits, including cardiovascular disease, type 2
 diabetes, cancer, and many others. By utilizing large sample sizes and
@@ -487,34 +450,48 @@ will maximize the number of markers remaining in the study.
 ### Per Individual Quality Control
 
 Per-individual QC screens genotype to identify subjects that may
-introduce bias, if not removed. There are several steps of
-per-individual QC for a GWAS data set.
+introduce bias, if not removed. Poorly genotyped (low call rate)
+individuals will increase error in the study and may significantly
+affect the results. There are several steps of per-individual QC for a
+GWAS data set.
 
 ### Step 1: Converting ped and map into binary format
 
-<br> ./plink –file raw\_GWAS\_data –make-bed <br> <br>
+PLINK command: <br> <br> ./plink –file raw\_GWAS\_data –make-bed <br>
+<br>
 
 ### Step 2: Identification of individuals with discordant sex information
 
-<br> PLINK command <br> ./plink –bfile raw\_GWAS\_data –check-sex –out
-GWAS\_Sex\_Check <br>
+This was the first step of QC, performed to identify subjects that have
+inconclusive/contradictory gender information, as it can lead to
+spurious associations. In a case-control study, samples that show the
+wrong gender information are suggested to be excluded from further QC
+and statistical analysis. Subjects were appropriately recoded or
+removed, if information was inconclusive, for further analyses.
+
+<br> **PLINK command to check the sex of all individuals** <br> <br>
+./plink –bfile raw\_GWAS\_data –check-sex –out GWAS\_Sex\_Check <br>
 
 -   Command Create a list of individuals with discordant sex data in
-    file “GWAS\_Sex\_Check.sexcheck”. Column 3 denotes ascertained sex
-    and column 4 denotes sex according to genotype data. When the
-    homozygosity rate is more than 0.2 but less than 0.8, the genotype
-    data are inconclusive regarding the sex of an individual and these
-    are marked in column 4 with a 0.
+    file “GWAS\_Sex\_Check.sexcheck”. Ascertained sex is indicated in
+    column 3 while genotype-based sex is indicated in column 4. The
+    genotype data are noted in column 4 with a 0 when the homozygosity
+    rate is more than 0.2 but less than 0.8, indicating that the data
+    are inconclusive about the sex of an individual.
+
 -   Extract the IDs of individuals with discordant sex information. In
     situations in which discrepancy cannot be resolved, remove the
-    individuals through following command. <br> <br> PLINK command <br>
-    **plink –bfile raw\_GWAS\_data –remove
-    discordant-sex-individuals-file.txt –make-bed –out
-    1\_QC\_Raw\_GWAS\_data** <br> <br> (File
-    “discordant-sex-individuals-file.txt”, should contain only FID and
-    IID of the individuals that have to be removed)
+    individuals through following command. <br> <br>
 
-<!-- -->
+**PLINK command to to remove the individuals based on sex information**
+<br> **plink –bfile raw\_GWAS\_data –remove
+discordant-sex-individuals-file.txt –make-bed –out
+1\_QC\_Raw\_GWAS\_data**
+
+<br> <br>
+
+(File “discordant-sex-individuals-file.txt”, should contain only FID and
+IID of the individuals that have to be removed)
 
     Gender <- read.table("Sex_check_1.sexcheck", header = T, as.is = T) %>%
       na.omit()
