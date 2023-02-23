@@ -470,7 +470,7 @@ and statistical analysis. Subjects were appropriately recoded or
 removed, if information was inconclusive, for further analyses.
 
 <br> **PLINK command to check the sex of all individuals** <br> <br>
-./plink –bfile raw\_GWAS\_data –check-sex –out GWAS\_Sex\_Check <br>
+**./plink –bfile raw\_GWAS\_data –check-sex –out GWAS\_Sex\_Check** <br>
 
 -   Command Create a list of individuals with discordant sex data in
     file “GWAS\_Sex\_Check.sexcheck”. Ascertained sex is indicated in
@@ -479,19 +479,102 @@ removed, if information was inconclusive, for further analyses.
     rate is more than 0.2 but less than 0.8, indicating that the data
     are inconclusive about the sex of an individual.
 
+<table>
+<thead>
+<tr class="header">
+<th>FID</th>
+<th>IID</th>
+<th>PEDSEX</th>
+<th>SNPSEX</th>
+<th>STATUS</th>
+<th>F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>201320</td>
+<td>2</td>
+<td>2</td>
+<td>OK</td>
+<td>0.027</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>201327</td>
+<td>2</td>
+<td>1</td>
+<td>PROBLEM</td>
+<td>0.974</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>201335</td>
+<td>2</td>
+<td>0</td>
+<td>PROBLEM</td>
+<td>0.45</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>201342</td>
+<td>1</td>
+<td>2</td>
+<td>PROBLEM</td>
+<td>0.45</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>201359</td>
+<td>1</td>
+<td>0</td>
+<td>PROBLEM</td>
+<td>0.32</td>
+</tr>
+</tbody>
+</table>
+
 -   Extract the IDs of individuals with discordant sex information. In
     situations in which discrepancy cannot be resolved, remove the
     individuals through following command. <br> <br>
 
 **PLINK command to to remove the individuals based on sex information**
-<br> **plink –bfile raw\_GWAS\_data –remove
+<br> <br> **plink –bfile raw\_GWAS\_data –remove
 discordant-sex-individuals-file.txt –make-bed –out
-1\_QC\_Raw\_GWAS\_data**
+1\_QC\_Raw\_GWAS\_data** <br> <br> (File
+“discordant-sex-individuals-file.txt”, should contain only FID and IID
+of the individuals that have to be removed)
 
-<br> <br>
-
-(File “discordant-sex-individuals-file.txt”, should contain only FID and
-IID of the individuals that have to be removed)
+<table>
+<thead>
+<tr class="header">
+<th>FID</th>
+<th>IID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>201320</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>201327</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>201335</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>201342</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>201359</td>
+</tr>
+</tbody>
+</table>
 
     Gender <- read.table("Sex_check_1.sexcheck", header = T, as.is = T) %>%
       na.omit()
