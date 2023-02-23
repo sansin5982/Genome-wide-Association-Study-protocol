@@ -10,38 +10,60 @@
         -   <a href="#bed" id="toc-bed">BED</a>
         -   <a href="#bim" id="toc-bim">BIM</a>
         -   <a href="#fam" id="toc-fam">FAM</a>
-    -   <a href="#steps-to-perform-genome-wide-association-study"
-        id="toc-steps-to-perform-genome-wide-association-study">Steps to perform
-        Genome-wide association study:</a>
+    -   <a
+        href="#steps-to-perform-quality-control-in-a-genome-wide-association-study"
+        id="toc-steps-to-perform-quality-control-in-a-genome-wide-association-study">Steps
+        to perform quality control in a Genome-wide association study:</a>
         -   <a href="#per-individual-quality-control"
             id="toc-per-individual-quality-control">Per Individual Quality
             Control</a>
-        -   <a href="#per-snp-quality-control" id="toc-per-snp-quality-control">Per
-            SNP quality control</a>
+        -   <a href="#step-1-converting-ped-and-map-into-binary-format"
+            id="toc-step-1-converting-ped-and-map-into-binary-format">Step 1:
+            Converting ped and map into binary format</a>
+        -   <a
+            href="#step-2-identification-of-individuals-with-discordant-sex-information"
+            id="toc-step-2-identification-of-individuals-with-discordant-sex-information">Step
+            2: Identification of individuals with discordant sex information</a>
+        -   <a
+            href="#step-3-identification-of-individuals-with-elevated-missing-data-rates"
+            id="toc-step-3-identification-of-individuals-with-elevated-missing-data-rates">Step
+            3: Identification of individuals with elevated missing data rates</a>
+        -   <a
+            href="#step-4-identification-of-individuals-with-outlying-heterozygosity-rate"
+            id="toc-step-4-identification-of-individuals-with-outlying-heterozygosity-rate">Step
+            4: Identification of individuals with outlying heterozygosity rate</a>
+        -   <a href="#step-5-identification-of-duplicated-or-related-individuals"
+            id="toc-step-5-identification-of-duplicated-or-related-individuals">Step
+            5: Identification of duplicated or related individuals</a>
+        -   <a href="#step-6-identification-of-individuals-of-divergent-ancestry"
+            id="toc-step-6-identification-of-individuals-of-divergent-ancestry">Step
+            6: Identification of Individuals of divergent ancestry</a>
+    -   <a href="#per-snp-quality-control" id="toc-per-snp-quality-control">Per
+        SNP quality control</a>
 -   <a href="#references" id="toc-references">References</a>
-    -   <a href="#key-words-in-gwas" id="toc-key-words-in-gwas">Key Words in
-        GWAS</a>
-        -   <a href="#allele" id="toc-allele">Allele</a>
-        -   <a href="#gene" id="toc-gene">Gene</a>
-        -   <a href="#genotype" id="toc-genotype">Genotype</a>
-        -   <a href="#haplotype" id="toc-haplotype">Haplotype</a>
-        -   <a href="#hardyweinberg-disequilibrium-hwe"
-            id="toc-hardyweinberg-disequilibrium-hwe">Hardy–Weinberg
-            (dis)equilibrium (HWE)</a>
-        -   <a href="#heterozygosity" id="toc-heterozygosity">Heterozygosity</a>
-        -   <a href="#homozygosity" id="toc-homozygosity">Homozygosity</a>
-        -   <a href="#linkage-disequilibrium-ld"
-            id="toc-linkage-disequilibrium-ld">Linkage disequilibrium (LD)</a>
-        -   <a href="#minor-allele-frequency" id="toc-minor-allele-frequency">Minor
-            allele frequency</a>
-        -   <a href="#multiple-comparison" id="toc-multiple-comparison">Multiple
-            comparison</a>
-        -   <a href="#population-stratification"
-            id="toc-population-stratification">Population stratification</a>
-        -   <a href="#relatedness" id="toc-relatedness">Relatedness</a>
-        -   <a href="#single-nucleotide-polymorhisms"
-            id="toc-single-nucleotide-polymorhisms">Single Nucleotide
-            Polymorhisms</a>
+-   <a href="#key-words-in-gwas" id="toc-key-words-in-gwas">Key Words in
+    GWAS</a>
+    -   <a href="#allele" id="toc-allele">Allele</a>
+    -   <a href="#gene" id="toc-gene">Gene</a>
+    -   <a href="#genotype" id="toc-genotype">Genotype</a>
+    -   <a href="#haplotype" id="toc-haplotype">Haplotype</a>
+    -   <a href="#hardyweinberg-disequilibrium-hwe"
+        id="toc-hardyweinberg-disequilibrium-hwe">Hardy–Weinberg
+        (dis)equilibrium (HWE)</a>
+    -   <a href="#heterozygosity" id="toc-heterozygosity">Heterozygosity</a>
+    -   <a href="#homozygosity" id="toc-homozygosity">Homozygosity</a>
+    -   <a href="#linkage-disequilibrium-ld"
+        id="toc-linkage-disequilibrium-ld">Linkage disequilibrium (LD)</a>
+    -   <a href="#minor-allele-frequency" id="toc-minor-allele-frequency">Minor
+        allele frequency</a>
+    -   <a href="#multiple-comparison" id="toc-multiple-comparison">Multiple
+        comparison</a>
+    -   <a href="#population-stratification"
+        id="toc-population-stratification">Population stratification</a>
+    -   <a href="#relatedness" id="toc-relatedness">Relatedness</a>
+    -   <a href="#single-nucleotide-polymorhisms"
+        id="toc-single-nucleotide-polymorhisms">Single Nucleotide
+        Polymorhisms</a>
 
 # Introduction
 
@@ -424,24 +446,16 @@ interest, and 0 indicating unaffected.The phenotype can be either a
 quantitative trait or an affection status column: PLINK will
 automatically detect which type. \# Methods
 
-## Steps to perform Genome-wide association study:
+## Steps to perform quality control in a Genome-wide association study:
 
-1.  If we get ped and map file, first should convert it into binary
-    format (bed, bim and fam) <br> <br> **./plink –file raw\_GWAS\_data
-    –make-bed** <br> <br> Note: Earlier version of plink reads X
-    chromosome as 23, Y chromosome as 24, pseudo-autosomal region of X
-    as 25 and mitochondrial as 26. However, plink2 reads them with X, Y
-    etc. <br> <br>
-
-**Quality controls steps:** <br> GWASs use thousands of markers to test
-association. Even a low rate of error or bias will introduce false
-positive associations. It has been suggested that removal of handful
-individuals or small percentage of markers should not markedly decrease
-the overall power of the study. Removal of one marker has greater impact
-than removal of one individual. Removal of one marker is potentially an
-overlooked disease association. Thus, implementing QC per-individual
-before QC per-marker will maximize the number of markers remaining in
-the study.
+A GWAS use thousands of markers to test a genetic association. Even a
+low rate of error or bias will introduce false positive associations. It
+has been suggested that removal of handful individuals or small
+percentage of markers should not markedly decrease the overall power of
+the study. Removal of one marker has greater impact than removal of one
+individual. Removal of one marker is potentially an overlooked disease
+association. Thus, implementing QC per-individual before QC per-marker
+will maximize the number of markers remaining in the study.
 
 ### Per Individual Quality Control
 
@@ -449,7 +463,14 @@ Per-individual QC screens genotype to identify subjects that may
 introduce bias, if not removed. There are several steps of
 per-individual QC for a GWAS data set.
 
-#### Identification of individuals with discordant sex information
+### Step 1: Converting ped and map into binary format
+
+<br> **./plink –file raw\_GWAS\_data –make-bed** <br> <br> Note: Earlier
+version of plink reads X chromosome as 23, Y chromosome as 24,
+pseudo-autosomal region of X as 25 and mitochondrial as 26. However,
+plink2 reads them with X, Y etc. <br> <br>
+
+### Step 2: Identification of individuals with discordant sex information
 
 <br> PLINK command <br> **plink –bfile raw\_GWAS\_data –check-sex –out
 GWAS\_Sex\_Check** <br>
@@ -504,7 +525,7 @@ GWAS\_Sex\_Check** <br>
 Discordant Sex information
 </p>
 
-#### Identification of individuals with elevated missing data rates
+### Step 3: Identification of individuals with elevated missing data rates
 
 <br> PLINK command <br> **./plink2 –bfile 1\_QC\_Raw\_GWAS\_data
 –missing –out missing\_data\_rate** <br> - Command creates the files
@@ -513,7 +534,7 @@ fourth column in the .imiss file (N\_MISS) denotes the number of missing
 SNPs and the sixth column (F\_MISS) denotes the proportion of missing
 SNPs per individual.
 
-#### Identification of individuals with outlying heterozygosity rate
+### Step 4: Identification of individuals with outlying heterozygosity rate
 
 <br> PLINK command <br> **./plink –bfile 1\_QC\_Raw\_GWAS\_data –het
 –out outlying\_heterozygosity\_rate** <br> <br> **NOTE: plink2 format
@@ -576,7 +597,7 @@ individual.
 Individual missingness and heterozygoisty rate
 </p>
 
-#### Identification of duplicated or related individuals
+### Step 5: Identification of duplicated or related individuals
 
 -   Check the relatedness. Use the independent SNPs (pruning) for this
     analysis and limit to autosomal chromosome only <br> PLINK command
@@ -630,11 +651,12 @@ Individual missingness and heterozygoisty rate
 Relatedness
 </p>
 
-#### Identification of Individuals of divergent ancestry
+### Step 6: Identification of Individuals of divergent ancestry
 
-1.  **Multidimensional scaling** <br> PLINK Command <br> **plink –bfile
-    3\_QC\_Raw\_GWAS\_data –extract raw-GWAS-data.prune.in –genome
-    –cluster –mds-plot 10**
+#### Approach 1: Multidimensional scaling
+
+<br> PLINK Command <br> **plink –bfile 3\_QC\_Raw\_GWAS\_data –extract
+raw-GWAS-data.prune.in –genome –cluster –mds-plot 10**
 
 -   Visualizing population structure using MDS is useful for identifying
     subpopulations, population stratification and systematic genotyping
@@ -642,12 +664,12 @@ Relatedness
     outliers that may need to be removed, e.g. European-Americans
     included in a study of African-Americans.
 
-1.  **Principal component analysis** <br> PLINK Command <br> **plink
-    –bfile 3\_QC\_Raw\_GWAS\_data –genome –cluster –pca 10**
+#### Approach 2: Principal component analysis
 
--   We can also utilize hapmap data to perform PCA
+<br> PLINK Command <br> **plink –bfile 3\_QC\_Raw\_GWAS\_data –genome
+–cluster –pca 10** - We can also utilize hapmap data to perform PCA
 
-### Per SNP quality control
+## Per SNP quality control
 
 #### Hardy Weinberg equilibrium
 
@@ -722,7 +744,7 @@ statistical test result. - Most common reason is not biological,
 association studies: Quality control and statistical analysis. *Int J
 Methods Psychiatr Res*, Jun; 27(2): e1608.
 
-## Key Words in GWAS
+# Key Words in GWAS
 
 ### Allele
 
