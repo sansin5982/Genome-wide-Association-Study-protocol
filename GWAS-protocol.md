@@ -46,15 +46,53 @@
 
 A genome-wide association study (GWAS) is a type of study that uses
 genomic data to identify genetic variations that are associated with a
-particular trait or disease (Marees et al, 2018). It involves genotyping
-a large number of single nucleotide polymorphisms (SNPs) across the
-entire genome of many individuals and comparing the frequency of these
-SNPs in individuals with the trait or disease of interest compared to
-those without the trait or disease. The goal of a GWAS is to identify
-specific genetic loci that are associated with the trait or disease,
-which can provide insight into the underlying biological mechanisms and
-potentially lead to the development of new diagnostic tools and
-treatments.
+particular trait or disease (Marees et al, 2018).The National Institute
+of Health (NIH) defines GWAS as a study of common genetic variations
+across the entire genome designed to identify genetic associations with
+observable traits. A GWAS uses high-throughput genotyping technology. It
+examines thousands of polymorphisms to relate them to a clinical
+condition or measurable trait.It is a hypothesis-free approach to scan
+markers across the whole genome.
+
+It involves genotyping a large number of single nucleotide polymorphisms
+(SNPs) across the entire genome of many individuals and comparing the
+frequency of these SNPs in individuals with the trait or disease of
+interest compared to those without the trait or disease.A traditional
+**case-control study design** is the most common approach in GWASs. The
+goal of a GWAS is to identify specific genetic loci that are associated
+with the trait or disease, which can provide insight into the underlying
+biological mechanisms and potentially lead to the development of new
+diagnostic tools and treatments.
+
+The human genome contains around 19,881 genes83, 84. These genes are
+discrete segments of deoxyribonucleic acid (DNA) that convey information
+to protein via ribonucleic acid (RNA). Genetic variation refers to DNA
+sequence polymorphism83. An allele is one of the several forms of a DNA
+segment (e.g. a gene or locus). There are many forms and levels of
+genetic variations83. The most common genetic variation that has been
+examined in this study is called a SNP. For example, the same nucleotide
+position may be occupied by a guanine (G) in one individual and a
+cytosine (C) in another. An allele, which occurs less frequent in a
+population is called a minor allele. In the example given below, C is
+the minor allele, and polymorphism will be represented as G&gt;C
+polymorphism.
+*S**u**b**j**e**c**t*1 : *A**C**T**G**A**C**T**C**A**T*
+
+*S**u**b**j**e**c**t*2 : *A**C**T**C**A**C**T**C**A**T*
+
+In this instance, the two nucleotides represent two different alleles.
+
+Subject 1 = GG (wild-type), both chromosomes have G allele and G allele
+is commonly present in the population
+*A**C**T**G**A**C**T**C**A**T*
+*A**C**T**G**A**C**T**C**A**T*
+Subject 2 = GC (heterozygote), one chromosome has G allele and another
+chromosome has C allele. ACTGACTCAT ACTCACTCAT Subject 3 = CC
+(homozygous variant), both chromosomes have C alleles, and C allele is
+less frequently present in the population. ACTCACTCAT ACTCACTCAT The
+wild-type genotype is the referent group in a statistical analysis. The
+other two genotypes may be included in the analysis as they are (gene
+dosage analysis) or may be pooled depending on the genetic model.
 
 GWAS has been used to identify genetic risk factors for a wide range of
 complex diseases and traits, including cardiovascular disease, type 2
@@ -646,7 +684,9 @@ raw-GWAS-data.prune.in –genome –cluster –mds-plot 10**
 #### Approach 2: Principal component analysis
 
 <br> PLINK Command <br> **plink –bfile 3\_QC\_Raw\_GWAS\_data –genome
-–cluster –pca 10** - We can also utilize hapmap data to perform PCA
+–cluster –pca 10**
+
+-   We can also utilize hapmap data to perform PCA
 
 ## Per SNP quality control
 
