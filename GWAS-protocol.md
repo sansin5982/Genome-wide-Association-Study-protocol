@@ -30,6 +30,8 @@ alleles, one from the mother and another from the father. The person is
 homozygous for the allele if the two alleles are identical. The person
 is heterozygous if the alleles are distinct from one another.
 
+<img src="Allele.jpg" width="60%" style="display: block; margin: auto;" />
+
 ### Gene
 
 A gene is a sequence of DNA that contains the instructions for producing
@@ -70,15 +72,16 @@ can be passed down to future generations through natural selection.
 
 ### Population stratification
 
-<img src="Population_stratification.jpg" width="60%" style="display: block; margin: auto;" /> -
-Population stratification is a threat to the validity of genetic
-association studies. Population stratification may confound results if
-not adjusted. A population in a genetic association study may arise from
-two distinct sub-populations which may differ in their genetic ancestry.
-Systematic differences in allele frequencies between these two
-subpopulations may confound the result. There are thousands of neutral
-loci, known as **genomic controls**, used to correct for population
-stratification in GWAS.
+<img src="Population_stratification.jpg" width="60%" style="display: block; margin: auto;" />
+
+-   Population stratification is a threat to the validity of genetic
+    association studies. Population stratification may confound results
+    if not adjusted. A population in a genetic association study may
+    arise from two distinct sub-populations which may differ in their
+    genetic ancestry. Systematic differences in allele frequencies
+    between these two subpopulations may confound the result. There are
+    thousands of neutral loci, known as **genomic controls**, used to
+    correct for population stratification in GWAS.
 
 In GWAS, researchers typically examine the association between genetic
 variants and traits or diseases of interest in a study population.
@@ -97,6 +100,18 @@ often based on patterns of genetic variation across the genome. By
 accounting for population stratification in this way, researchers can
 more accurately identify genetic variants associated with the trait or
 disease of interest in the study population.
+
+#### Principal component analysis
+
+Principal component analysis (PCA) is a statistical method used in
+genome-wide association studies (GWAS) to identify population structure
+and correct for potential confounding effects.
+
+PCA is a multivariate statistical technique that identifies linear
+combinations of the original variables that capture the largest amount
+of variation in the data. In the context of GWAS, PCA is typically
+applied to the genotype data to identify patterns of genetic variation
+that are associated with ancestry or population structure.
 
 ### Relatedness
 
