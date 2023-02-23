@@ -501,35 +501,43 @@ removed, if information was inconclusive, for further analyses.
 </tr>
 <tr class="even">
 <td>1</td>
+<td>201320</td>
+<td>1</td>
+<td>1</td>
+<td>OK</td>
+<td>0.976</td>
+</tr>
+<tr class="odd">
+<td>1</td>
 <td>201327</td>
 <td>2</td>
 <td>1</td>
 <td>PROBLEM</td>
 <td>0.974</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>1</td>
 <td>201335</td>
 <td>2</td>
 <td>0</td>
 <td>PROBLEM</td>
-<td>0.45</td>
+<td>0.456</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>1</td>
 <td>201342</td>
 <td>1</td>
 <td>2</td>
 <td>PROBLEM</td>
-<td>0.45</td>
+<td>0.632</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>1</td>
 <td>201359</td>
 <td>1</td>
 <td>0</td>
 <td>PROBLEM</td>
-<td>0.32</td>
+<td>0.321</td>
 </tr>
 </tbody>
 </table>
