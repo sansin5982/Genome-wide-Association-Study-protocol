@@ -23,14 +23,16 @@ powerful tool in the field of genetics and genomics.
 
 ### Allele
 
-At a specific genomic location, an allele is one of two or more
-variations of the DNA sequence (a segment of bases or a single base).
-For each genomic region with such variation, an individual inherits two
-alleles, one from the mother and another from the father. The person is
-homozygous for the allele if the two alleles are identical. The person
-is heterozygous if the alleles are distinct from one another.
+An allele is one of two or more DNA sequence variations (a segment of
+bases or a single base) at a specific genomic location. For each genomic
+region with such variation, an individual inherits two alleles, one from
+the mother and another from the father. The person is homozygous (BB or
+bb) for the allele if the two alleles are identical. The person is
+heterozygous (Bb) if the alleles are distinct. Here, allele B or b
+represents A, G, C, or T (REF:
+[link](https://www.genome.gov/genetics-glossary)).
 
-<img src="Allele.jpg" width="40%" style="display: block; margin: auto;" />
+<img src="Allele.jpg" width="60%" style="display: block; margin: auto;" />
 
 ### Gene
 
@@ -55,6 +57,8 @@ sequence. Some mutations can result in altered or nonfunctional
 proteins, leading to diseases or other genetic disorders. Other
 mutations may have no effect or even result in beneficial changes that
 can be passed down to future generations through natural selection.
+
+### Genotype
 
 ### Haplotype
 
