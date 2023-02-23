@@ -542,11 +542,16 @@ removed, if information was inconclusive, for further analyses.
 </tbody>
 </table>
 
+-   The above command also provide a log file, here
+    GWAS\_Sex\_Check.log, that provides many information including
+    number of cases and controls, males and females count, individuals
+    with ambiguous code, etc
+
 -   Extract the IDs of individuals with discordant sex information. In
-    situations in which discrepancy cannot be resolved, remove the
+    situations where discrepancies cannot be resolved, remove the
     individuals through following command. <br> <br>
 
-**PLINK command to to remove the individuals based on sex information**
+**PLINK command to remove the individuals based on sex information**
 <br> <br> **plink –bfile raw\_GWAS\_data –remove
 discordant-sex-individuals-file.txt –make-bed –out
 1\_QC\_Raw\_GWAS\_data** <br> <br> (File
@@ -587,6 +592,7 @@ of the individuals that have to be removed)
     Gender <- read.table("Sex_check_1.sexcheck", header = T, as.is = T) %>%
       na.omit()
     png("Gender_check.png")
+
     ggplot(Gender, aes(x=F, y= PEDSEX, col = STATUS))+
       geom_point()+
       labs(y="Gender", x = "F score")+
@@ -612,6 +618,10 @@ of the individuals that have to be removed)
                color="#00bfff")
     dev.off()
 
+The above R script will create a png file containing information based
+on STATUS column and differentiate males, females and ambiguous data
+separately.
+
 <img src="Gender_check.png" alt="Discordant Sex information"  />
 <p class="caption">
 Discordant Sex information
@@ -619,22 +629,120 @@ Discordant Sex information
 
 ### Step 3: Identification of individuals with elevated missing data rates
 
-<br> PLINK command <br> **./plink2 –bfile 1\_QC\_Raw\_GWAS\_data
-–missing –out missing\_data\_rate** <br> - Command creates the files
-“missing\_data\_rate.imiss” and “missing\_data\_rate.lmiss”. - The
-fourth column in the .imiss file (N\_MISS) denotes the number of missing
-SNPs and the sixth column (F\_MISS) denotes the proportion of missing
-SNPs per individual.
+This QC step is used to identify and exclude individuals with too much
+missing genotype data. Genotype accuracy and genotype call rate can be
+significantly affected by variations in DNA quality. A high genotype
+failure rate suggest poor DNA sample quality. <br> **PLINK command to
+calculate missing rate.** <br> <br> **./plink2 –bfile
+1\_QC\_Raw\_GWAS\_data –missing –out missing\_data\_rate** <br> <br> -
+Command creates the files “missing\_data\_rate.imiss” and
+“missing\_data\_rate.lmiss”. - The “imiss” file (individual missingness)
+reports the proportion of missing genotypes per individual in the
+dataset. It lists each individual ID and the number and proportion of
+missing genotypes for that individual. This can be useful for
+identifying samples with high levels of missing data that may need to be
+removed from downstream analyses.
+
+<table>
+<thead>
+<tr class="header">
+<th>FID</th>
+<th>IID</th>
+<th>MISS_PHENO</th>
+<th>N_MISS</th>
+<th>N_GENO</th>
+<th>F_MISS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>201320</td>
+<td>N</td>
+<td>631</td>
+<td>536323</td>
+<td>0.00177</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>201327</td>
+<td>N</td>
+<td>566</td>
+<td>536323</td>
+<td>0.00105</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>201419</td>
+<td>N</td>
+<td>94784</td>
+<td>536323</td>
+<td>0.1767</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>201567</td>
+<td>N</td>
+<td>16860</td>
+<td>538448</td>
+<td>0.03131</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>201359</td>
+<td>N1103</td>
+<td>538448</td>
+<td>0.00204</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+-   The fourth column in the .imiss file (N\_MISS) denotes the number of
+    missing SNPs and the sixth column (F\_MISS) denotes the proportion
+    of missing SNPs per individual.
 
 ### Step 4: Identification of individuals with outlying heterozygosity rate
 
 <br> PLINK command <br> **./plink –bfile 1\_QC\_Raw\_GWAS\_data –het
-–out outlying\_heterozygosity\_rate** <br> <br> **NOTE: plink2 format
-will give results in a different way** <br> - Command creates the file
-“outlying\_heterozygosity\_rate.het”, in which the third column denotes
-the observed number of homozygous genotypes \[O(Hom)\] and the fifth
-column denotes the number of non-missing genotypes \[N(NM)\] per
-individual.
+–out outlying\_heterozygosity\_rate** <br> <br>
+
+<table>
+<thead>
+<tr class="header">
+<th>FID</th>
+<th>IID</th>
+<th>O(HOM)</th>
+<th>E(HOM)</th>
+<th>N(NM)</th>
+<th>F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>201320</td>
+<td>228640</td>
+<td>2.259e+05</td>
+<td>325867</td>
+<td>0.0272</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>201337</td>
+<td>227550</td>
+<td>2.26e+05</td>
+<td>326067</td>
+<td>0.01506</td>
+</tr>
+</tbody>
+</table>
+
+**NOTE: plink2 format will give results in a different way** <br> -
+Command creates the file “outlying\_heterozygosity\_rate.het”, in which
+the third column denotes the observed number of homozygous genotypes
+\[O(Hom)\] and the fifth column denotes the number of non-missing
+genotypes \[N(NM)\] per individual.
 
     # Missing individual & Heterozygosity rate
     miss <- fread("SEX_data/Missing_sample/missing_data_rate.imiss")
@@ -642,12 +750,13 @@ individual.
     head(miss, 2)
     head(hetro, 2)
 
+Next we calculate observed heterozygosity rate
+
     # Calculate the observed heterozyosity rate
     hetro$obs_hetero_rate <- ((hetro$`N(NM)`)-hetro$`E(HOM)`)/hetro$`N(NM)`
 
--   Merge the “missing\_data\_rate.smiss” and
-    “outlying\_heterozygosity\_rate.het” hetroandmiss&lt;- merge(hetro,
-    miss, by=“IID”)
+-   Merge the “missing\_data\_rate.imiss” and
+    “outlying\_heterozygosity\_rate.het”
 
 <!-- -->
 
@@ -683,6 +792,11 @@ individual.
                color="#003300")
 
     dev.off()
+
+The above R script will create a png file containing information based
+on missing rate and heterozygosity rate. For missing rate we set a
+threshold value &lt; 0.01 and for heterzygosity rate between + and - 3
+standard deviation.
 
 <img src="Missing_hetero_check.png" alt="Individual missingness and heterozygoisty rate"  />
 <p class="caption">
