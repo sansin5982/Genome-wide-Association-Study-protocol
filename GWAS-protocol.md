@@ -1,3 +1,48 @@
+-   <a href="#introduction" id="toc-introduction">Introduction</a>
+    -   <a href="#key-words-in-gwas" id="toc-key-words-in-gwas">Key Words in
+        GWAS</a>
+        -   <a href="#allele" id="toc-allele">Allele</a>
+        -   <a href="#gene" id="toc-gene">Gene</a>
+        -   <a href="#genotype" id="toc-genotype">Genotype</a>
+        -   <a href="#haplotype" id="toc-haplotype">Haplotype</a>
+        -   <a href="#hardyweinberg-disequilibrium-hwe"
+            id="toc-hardyweinberg-disequilibrium-hwe">Hardy–Weinberg
+            (dis)equilibrium (HWE)</a>
+        -   <a href="#heterozygosity" id="toc-heterozygosity">Heterozygosity</a>
+        -   <a href="#homozygosity" id="toc-homozygosity">Homozygosity</a>
+        -   <a href="#linkage-disequilibrium-ld"
+            id="toc-linkage-disequilibrium-ld">Linkage disequilibrium (LD)</a>
+        -   <a href="#minor-allele-frequency" id="toc-minor-allele-frequency">Minor
+            allele frequency</a>
+        -   <a href="#multiple-comparison" id="toc-multiple-comparison">Multiple
+            comparison</a>
+        -   <a href="#population-stratification"
+            id="toc-population-stratification">Population stratification</a>
+        -   <a href="#relatedness" id="toc-relatedness">Relatedness</a>
+        -   <a href="#single-nucleotide-polymorhisms"
+            id="toc-single-nucleotide-polymorhisms">Single Nucleotide
+            Polymorhisms</a>
+-   <a href="#material-and-methods" id="toc-material-and-methods">Material
+    and Methods</a>
+    -   <a href="#basic-input-files" id="toc-basic-input-files">Basic input
+        files</a>
+        -   <a href="#ped-file" id="toc-ped-file">PED File</a>
+        -   <a href="#map-file" id="toc-map-file">MAP file</a>
+    -   <a href="#binary-file-format" id="toc-binary-file-format">Binary file
+        format</a>
+        -   <a href="#bed" id="toc-bed">BED</a>
+        -   <a href="#bim" id="toc-bim">BIM</a>
+        -   <a href="#fam" id="toc-fam">FAM</a>
+    -   <a href="#steps-to-perform-genome-wide-association-study"
+        id="toc-steps-to-perform-genome-wide-association-study">Steps to perform
+        Genome-wide association study:</a>
+        -   <a href="#per-individual-quality-control"
+            id="toc-per-individual-quality-control">Per Individual Quality
+            Control</a>
+        -   <a href="#per-snp-quality-control" id="toc-per-snp-quality-control">Per
+            SNP quality control</a>
+-   <a href="#references" id="toc-references">References</a>
+
 # Introduction
 
 A genome-wide association study (GWAS) is a type of study that uses
