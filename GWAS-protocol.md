@@ -32,9 +32,9 @@
             href="#step-4-identification-of-individuals-with-outlying-heterozygosity-rate"
             id="toc-step-4-identification-of-individuals-with-outlying-heterozygosity-rate">Step
             4: Identification of individuals with outlying heterozygosity rate</a>
-        -   <a href="#step-5-identification-of-duplicated-or-related-individuals"
-            id="toc-step-5-identification-of-duplicated-or-related-individuals">Step
-            5: Identification of duplicated or related individuals</a>
+        -   <a href="#step-5-identification-of-duplicate-samples"
+            id="toc-step-5-identification-of-duplicate-samples">Step 5:
+            Identification of duplicate samples</a>
         -   <a href="#step-6-identification-of-individuals-of-divergent-ancestry"
             id="toc-step-6-identification-of-individuals-of-divergent-ancestry">Step
             6: Identification of Individuals of divergent ancestry</a>
@@ -755,8 +755,7 @@ Next we calculate observed heterozygosity rate
     # Calculate the observed heterozyosity rate
     hetro$obs_hetero_rate <- ((hetro$`N(NM)`)-hetro$`E(HOM)`)/hetro$`N(NM)`
 
--   Merge the “missing\_data\_rate.imiss” and
-    “outlying\_heterozygosity\_rate.het”
+-   Merge the miss and hetro dataframe above created
 
 <!-- -->
 
@@ -803,19 +802,16 @@ standard deviation.
 Individual missingness and heterozygoisty rate
 </p>
 
-### Step 5: Identification of duplicated or related individuals
+### Step 5: Identification of duplicate samples
 
--   Check the relatedness. Use the independent SNPs (pruning) for this
-    analysis and limit to autosomal chromosome only <br> PLINK command
-    <br> **plink –bfile 2\_QC\_Raw\_GWAS\_data –chr 1-22 –make-bed –out
-    Autosomal**
--   Create independent SNPs through pruning <br> PLINK command <br>
-    **plink –bfile Autosomal –indep-pairwise 50 5 0.2 –out
-    raw-GWAS-data** <br> it will generate raw-GWAS-data.prune.in file.
-    This file use in next step
--   Check relatedness <br> PLINK command <br> **plink –bfile
-    2\_QC\_Raw\_GWAS\_data –extract raw-GWAS-data.prune.in –genome –out
-    related\_check** <br>
+In a population based study, it is important that all samples should be
+unrelated. Presence of duplicate, first- or second-degree relatives will
+introduce bias in the study as their genotypes will be overrepresented.
+This step was used to identify all related and duplicate individuals for
+removal. A metric (identity by state, IBS) for each pair of individuals
+was calculated to identify duplicate samples. IBS is defined as, at a
+locus, two individuals who have an identical nucleotide sequence or the
+same allele.
 
 <table>
 <thead>
@@ -851,6 +847,18 @@ Individual missingness and heterozygoisty rate
 </tr>
 </tbody>
 </table>
+
+-   Check the relatedness. Use the independent SNPs (pruning) for this
+    analysis and limit to autosomal chromosome only <br> PLINK command
+    <br> **plink –bfile 2\_QC\_Raw\_GWAS\_data –chr 1-22 –make-bed –out
+    Autosomal**
+-   Create independent SNPs through pruning <br> PLINK command <br>
+    **plink –bfile Autosomal –indep-pairwise 50 5 0.2 –out
+    raw-GWAS-data** <br> it will generate raw-GWAS-data.prune.in file.
+    This file use in next step
+-   Check relatedness <br> PLINK command <br> **plink –bfile
+    2\_QC\_Raw\_GWAS\_data –extract raw-GWAS-data.prune.in –genome –out
+    related\_check** <br>
 
 <img src="Related_samples.png" alt="Relatedness"  />
 <p class="caption">
@@ -952,6 +960,9 @@ statistical test result. - Most common reason is not biological,
 association studies: Quality control and statistical analysis. *Int J
 Methods Psychiatr Res*, Jun; 27(2): e1608.
 
-2 - Singh, Sandeep Kumar, “A Case-Only Genome-wide Association Study of
+2- Anderson, C.A. et al, 2010. Data quality control in genetic
+case-control association studies. *Nat Protoc*, Sep:5(9):1564-73
+
+3- Singh, Sandeep Kumar, “A Case-Only Genome-wide Association Study of
 Gender- and Age-specific Risk Markers for Childhood Leukemia” (2015).
 FIU Electronic Theses and Dissertations. 1832
